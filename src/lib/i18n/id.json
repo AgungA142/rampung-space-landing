@@ -1,0 +1,195 @@
+{
+  "nav": {
+    "services": "Layanan",
+    "howItWorks": "Cara Kerja",
+    "portfolio": "Portfolio",
+    "about": "Tentang Kami",
+    "cta": "Konsultasi Gratis"
+  },
+  "hero": {
+    "headline": "Make Space. Get Rampung.",
+    "subheadline": "Dari ide mentah ke produk siap rilis. Kami bantu wujudkan software impianmu — tuntas, tanpa ribet.",
+    "ctaPrimary": "Mulai Diagnosa Proyek",
+    "ctaSecondary": "Lihat Portfolio"
+  },
+  "socialProof": {
+    "trusted": "Dipercaya oleh",
+    "clients": "klien",
+    "projects": "proyek selesai"
+  },
+  "services": {
+    "heading": "Apa yang Bisa Kami Rampungkan",
+    "primaryFocus": "FOKUS UTAMA",
+    "mvp": {
+      "title": "MVP Development",
+      "description": "Konsep → Produk dalam hitungan minggu. Validasi ide bisnismu dengan produk nyata yang siap go-to-market."
+    },
+    "webApp": {
+      "title": "Web Application",
+      "description": "Aplikasi web modern, responsif, dan skalabel untuk bisnis Anda."
+    },
+    "mobileApp": {
+      "title": "Mobile App",
+      "description": "Aplikasi mobile native dan cross-platform yang intuitif."
+    },
+    "api": {
+      "title": "API & Backend",
+      "description": "Sistem backend yang robust, aman, dan siap untuk skala besar."
+    },
+    "uiux": {
+      "title": "UI/UX Design",
+      "description": "Desain antarmuka yang indah dan pengalaman pengguna yang mulus."
+    },
+    "consultation": {
+      "title": "Tech Consultation",
+      "description": "Konsultasi teknis untuk membantu Anda membuat keputusan tepat."
+    }
+  },
+  "howItWorks": {
+    "heading": "Cara Kerja Kami: The Rampung Way",
+    "steps": {
+      "space": {
+        "title": "Space",
+        "subtitle": "Ruang Ide",
+        "description": "Ceritakan ide dan masalahmu. Kami dengarkan."
+      },
+      "diagnose": {
+        "title": "Diagnosa",
+        "subtitle": "Analisis",
+        "description": "Kami analisis kebutuhan teknis dan scope proyek."
+      },
+      "build": {
+        "title": "Build",
+        "subtitle": "Bangun",
+        "description": "Tim kami mulai membangun. Update mingguan, transparan."
+      },
+      "rampung": {
+        "title": "Rampung",
+        "subtitle": "Selesai",
+        "description": "Produk selesai, teruji, dan siap rilis. Beres!"
+      }
+    }
+  },
+  "diagnostic": {
+    "heading": "Logical-Logic",
+    "subheading": "Diagnosa awal kompleksitas proyek Anda",
+    "steps": {
+      "contact": "Info Kontak",
+      "budget": "Budget",
+      "platform": "Platform",
+      "targetUser": "Target User",
+      "features": "Fitur",
+      "timeline": "Timeline"
+    },
+    "labels": {
+      "name": "Nama",
+      "email": "Email",
+      "company": "Nama Perusahaan/Proyek",
+      "budgetIdr": "Budget (Rupiah)",
+      "budgetUsd": "Budget (Dollar)",
+      "next": "Selanjutnya",
+      "back": "Kembali",
+      "submit": "Kirim Diagnosa"
+    },
+    "platform": {
+      "webApp": "Web App",
+      "mobileAndroid": "Mobile Android",
+      "other": "Lainnya"
+    },
+    "targetUser": {
+      "internal": "Internal",
+      "internalDesc": "Tim/perusahaan sendiri, < 50 user",
+      "b2b": "B2B",
+      "b2bDesc": "Bisnis ke bisnis, ratusan user",
+      "b2c": "B2C",
+      "b2cDesc": "Konsumen umum, ribuan-jutaan user",
+      "marketplace": "Marketplace",
+      "marketplaceDesc": "Multi-sided platform (seller + buyer)",
+      "unknown": "Belum tahu",
+      "unknownDesc": "Masih eksplorasi"
+    },
+    "features": {
+      "auth": "User Authentication",
+      "payment": "Payment Integration",
+      "realtime": "Real-time Features",
+      "dashboard": "Dashboard & Analytics",
+      "fileUpload": "File Upload & Management",
+      "thirdPartyApi": "Third-party API Integration",
+      "adminPanel": "Admin Panel / CMS",
+      "geolocation": "Geolocation / Maps"
+    },
+    "timeline": {
+      "urgent": "< 1 bulan (Urgent)",
+      "normal": "1-3 bulan (Normal)",
+      "flexible": "3-6 bulan (Flexible)",
+      "longTerm": "> 6 bulan (Long-term)",
+      "undecided": "Belum ditentukan"
+    },
+    "thankYou": {
+      "heading": "Terima Kasih!",
+      "message": "Permintaan Anda telah kami terima dan sedang diproses. Tim kami akan segera menghubungi Anda maksimal 1x24 jam untuk mendiskusikan proyek Anda lebih lanjut.",
+      "subMessage": "Pastikan email {email} aktif dan cek folder spam jika belum menerima balasan.",
+      "backHome": "Kembali ke Beranda"
+    }
+  },
+  "testimonials": {
+    "heading": "Apa Kata Mereka"
+  },
+  "portfolio": {
+    "heading": "Yang Sudah Kami Rampungkan",
+    "cta": "Butuh sistem seperti ini?"
+  },
+  "about": {
+    "heading": "Space for Ideas. Rampung for Results.",
+    "values": {
+      "resultOriented": {
+        "title": "Result-Oriented",
+        "description": "Kami fokus pada produk yang benar-benar selesai."
+      },
+      "transparent": {
+        "title": "Transparent",
+        "description": "Update mingguan, tidak ada surprise."
+      },
+      "modernStack": {
+        "title": "Modern Stack",
+        "description": "Teknologi terkini untuk performa optimal."
+      }
+    }
+  },
+  "faq": {
+    "heading": "Yang Sering Ditanyakan",
+    "items": [
+      {
+        "question": "Berapa lama proses development MVP?",
+        "answer": "Tergantung kompleksitas, biasanya 4-12 minggu. Kami akan memberikan estimasi yang lebih akurat setelah sesi diagnosa."
+      },
+      {
+        "question": "Apakah saya perlu paham teknis?",
+        "answer": "Tidak. Kami yang menangani semua aspek teknis. Anda cukup ceritakan ide dan kebutuhan bisnis Anda."
+      },
+      {
+        "question": "Bagaimana proses pembayarannya?",
+        "answer": "Pembayaran dilakukan secara bertahap (milestone-based), sehingga Anda bisa melihat progress sebelum membayar tahap selanjutnya."
+      },
+      {
+        "question": "Apakah ada maintenance setelah launch?",
+        "answer": "Ya, kami menyediakan paket maintenance dan support setelah launch untuk memastikan produk berjalan optimal."
+      },
+      {
+        "question": "Teknologi apa yang digunakan?",
+        "answer": "Kami menggunakan teknologi modern seperti React, Next.js, Node.js, Python, dan cloud infrastructure terpercaya."
+      },
+      {
+        "question": "Bagaimana kalau saya baru punya ide kasar?",
+        "answer": "Justru itu yang kami bantu! Mulai dari diagnosa proyek gratis, kami akan membantu Anda mematangkan ide menjadi rencana yang actionable."
+      },
+      {
+        "question": "Apakah kode sumbernya milik saya?",
+        "answer": "Ya, semua kode sumber dan aset yang kami buat sepenuhnya menjadi milik Anda setelah proyek selesai."
+      }
+    ]
+  },
+  "footer": {
+    "copyright": "© 2026 rampung.space — Make Space. Get Rampung."
+  }
+}

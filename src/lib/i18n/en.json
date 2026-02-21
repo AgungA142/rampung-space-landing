@@ -1,0 +1,195 @@
+{
+  "nav": {
+    "services": "Services",
+    "howItWorks": "How It Works",
+    "portfolio": "Portfolio",
+    "about": "About Us",
+    "cta": "Free Consultation"
+  },
+  "hero": {
+    "headline": "Make Space. Get Rampung.",
+    "subheadline": "From raw ideas to launch-ready products. We build your dream software — done right, hassle-free.",
+    "ctaPrimary": "Start Project Diagnosis",
+    "ctaSecondary": "View Portfolio"
+  },
+  "socialProof": {
+    "trusted": "Trusted by",
+    "clients": "clients",
+    "projects": "projects completed"
+  },
+  "services": {
+    "heading": "What We Can Rampung",
+    "primaryFocus": "PRIMARY FOCUS",
+    "mvp": {
+      "title": "MVP Development",
+      "description": "Concept → Product in weeks. Validate your business idea with a real product ready for go-to-market."
+    },
+    "webApp": {
+      "title": "Web Application",
+      "description": "Modern, responsive, and scalable web applications for your business."
+    },
+    "mobileApp": {
+      "title": "Mobile App",
+      "description": "Intuitive native and cross-platform mobile applications."
+    },
+    "api": {
+      "title": "API & Backend",
+      "description": "Robust, secure, and scalable backend systems."
+    },
+    "uiux": {
+      "title": "UI/UX Design",
+      "description": "Beautiful interfaces and seamless user experiences."
+    },
+    "consultation": {
+      "title": "Tech Consultation",
+      "description": "Technical consulting to help you make the right decisions."
+    }
+  },
+  "howItWorks": {
+    "heading": "How We Work: The Rampung Way",
+    "steps": {
+      "space": {
+        "title": "Space",
+        "subtitle": "Room for Ideas",
+        "description": "Tell us your ideas and challenges. We listen."
+      },
+      "diagnose": {
+        "title": "Diagnose",
+        "subtitle": "Analysis",
+        "description": "We analyze technical requirements and project scope."
+      },
+      "build": {
+        "title": "Build",
+        "subtitle": "Develop",
+        "description": "Our team starts building. Weekly updates, full transparency."
+      },
+      "rampung": {
+        "title": "Rampung",
+        "subtitle": "Done",
+        "description": "Product complete, tested, and ready to launch. Done!"
+      }
+    }
+  },
+  "diagnostic": {
+    "heading": "Logical-Logic",
+    "subheading": "Initial complexity diagnosis for your project",
+    "steps": {
+      "contact": "Contact Info",
+      "budget": "Budget",
+      "platform": "Platform",
+      "targetUser": "Target User",
+      "features": "Features",
+      "timeline": "Timeline"
+    },
+    "labels": {
+      "name": "Name",
+      "email": "Email",
+      "company": "Company/Project Name",
+      "budgetIdr": "Budget (IDR)",
+      "budgetUsd": "Budget (USD)",
+      "next": "Next",
+      "back": "Back",
+      "submit": "Submit Diagnosis"
+    },
+    "platform": {
+      "webApp": "Web App",
+      "mobileAndroid": "Mobile Android",
+      "other": "Other"
+    },
+    "targetUser": {
+      "internal": "Internal",
+      "internalDesc": "Own team/company, < 50 users",
+      "b2b": "B2B",
+      "b2bDesc": "Business to business, hundreds of users",
+      "b2c": "B2C",
+      "b2cDesc": "General consumers, thousands-millions of users",
+      "marketplace": "Marketplace",
+      "marketplaceDesc": "Multi-sided platform (seller + buyer)",
+      "unknown": "Not sure yet",
+      "unknownDesc": "Still exploring"
+    },
+    "features": {
+      "auth": "User Authentication",
+      "payment": "Payment Integration",
+      "realtime": "Real-time Features",
+      "dashboard": "Dashboard & Analytics",
+      "fileUpload": "File Upload & Management",
+      "thirdPartyApi": "Third-party API Integration",
+      "adminPanel": "Admin Panel / CMS",
+      "geolocation": "Geolocation / Maps"
+    },
+    "timeline": {
+      "urgent": "< 1 month (Urgent)",
+      "normal": "1-3 months (Normal)",
+      "flexible": "3-6 months (Flexible)",
+      "longTerm": "> 6 months (Long-term)",
+      "undecided": "Not decided yet"
+    },
+    "thankYou": {
+      "heading": "Thank You!",
+      "message": "Your request has been received and is being processed. Our team will contact you within 24 hours to discuss your project further.",
+      "subMessage": "Make sure {email} is active and check your spam folder if you haven't received a reply.",
+      "backHome": "Back to Home"
+    }
+  },
+  "testimonials": {
+    "heading": "What They Say"
+  },
+  "portfolio": {
+    "heading": "What We've Rampunged",
+    "cta": "Need a system like this?"
+  },
+  "about": {
+    "heading": "Space for Ideas. Rampung for Results.",
+    "values": {
+      "resultOriented": {
+        "title": "Result-Oriented",
+        "description": "We focus on products that are truly complete."
+      },
+      "transparent": {
+        "title": "Transparent",
+        "description": "Weekly updates, no surprises."
+      },
+      "modernStack": {
+        "title": "Modern Stack",
+        "description": "Latest technology for optimal performance."
+      }
+    }
+  },
+  "faq": {
+    "heading": "Frequently Asked",
+    "items": [
+      {
+        "question": "How long does MVP development take?",
+        "answer": "Depending on complexity, usually 4-12 weeks. We'll provide a more accurate estimate after the diagnosis session."
+      },
+      {
+        "question": "Do I need to be technically savvy?",
+        "answer": "No. We handle all technical aspects. You just need to share your ideas and business needs."
+      },
+      {
+        "question": "How does the payment process work?",
+        "answer": "Payments are made in stages (milestone-based), so you can see progress before paying for the next phase."
+      },
+      {
+        "question": "Is there maintenance after launch?",
+        "answer": "Yes, we provide maintenance and support packages after launch to ensure your product runs optimally."
+      },
+      {
+        "question": "What technologies do you use?",
+        "answer": "We use modern technologies like React, Next.js, Node.js, Python, and trusted cloud infrastructure."
+      },
+      {
+        "question": "What if I only have a rough idea?",
+        "answer": "That's exactly what we help with! Starting from a free project diagnosis, we'll help you refine your idea into an actionable plan."
+      },
+      {
+        "question": "Do I own the source code?",
+        "answer": "Yes, all source code and assets we create are fully yours after the project is completed."
+      }
+    ]
+  },
+  "footer": {
+    "copyright": "© 2026 rampung.space — Make Space. Get Rampung."
+  }
+}
