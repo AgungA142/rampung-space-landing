@@ -17,9 +17,9 @@ function BracoLegs({ mood, size = 120 }: BracoLegsProps) {
     <motion.g variants={variants} animate="animate">
       {/* Left leg */}
       <motion.line
-        x1={48 * scale}
+        x1={57 * scale}
         y1={78 * scale}
-        x2={44 * scale}
+        x2={53 * scale}
         y2={92 * scale}
         stroke="#A8E66E"
         strokeWidth={3 * scale}
@@ -27,7 +27,7 @@ function BracoLegs({ mood, size = 120 }: BracoLegsProps) {
       />
       {/* Left shoe */}
       <motion.ellipse
-        cx={42 * scale}
+        cx={51 * scale}
         cy={94 * scale}
         rx={5 * scale}
         ry={3 * scale}
@@ -36,9 +36,9 @@ function BracoLegs({ mood, size = 120 }: BracoLegsProps) {
 
       {/* Right leg */}
       <motion.line
-        x1={62 * scale}
+        x1={71 * scale}
         y1={78 * scale}
-        x2={66 * scale}
+        x2={75 * scale}
         y2={92 * scale}
         stroke="#A8E66E"
         strokeWidth={3 * scale}
@@ -46,7 +46,7 @@ function BracoLegs({ mood, size = 120 }: BracoLegsProps) {
       />
       {/* Right shoe */}
       <motion.ellipse
-        cx={68 * scale}
+        cx={77 * scale}
         cy={94 * scale}
         rx={5 * scale}
         ry={3 * scale}

@@ -17,23 +17,23 @@ function BracoEyes({ mood, size = 120 }: BracoEyesProps) {
     <motion.g variants={variants} animate="animate">
       {/* Left eye */}
       <motion.circle
-        cx={48 * scale}
-        cy={38 * scale}
+        cx={57 * scale}
+        cy={40 * scale}
         r={4 * scale}
         fill="#A8E66E"
         style={{ filter: "drop-shadow(0 0 4px rgba(168, 230, 110, 0.8))" }}
       />
       {/* Right eye */}
       <motion.circle
-        cx={62 * scale}
-        cy={38 * scale}
+        cx={71 * scale}
+        cy={40 * scale}
         r={4 * scale}
         fill="#A8E66E"
         style={{ filter: "drop-shadow(0 0 4px rgba(168, 230, 110, 0.8))" }}
       />
       {/* Eye shine */}
-      <circle cx={46 * scale} cy={36 * scale} r={1.5 * scale} fill="#fff" opacity={0.7} />
-      <circle cx={60 * scale} cy={36 * scale} r={1.5 * scale} fill="#fff" opacity={0.7} />
+      <circle cx={55 * scale} cy={38 * scale} r={1.5 * scale} fill="#fff" opacity={0.7} />
+      <circle cx={69 * scale} cy={38 * scale} r={1.5 * scale} fill="#fff" opacity={0.7} />
     </motion.g>
   );
 }

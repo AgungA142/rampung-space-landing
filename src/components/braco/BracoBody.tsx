@@ -43,7 +43,7 @@ function BracoBody({ mood, size = 120 }: BracoBodyProps) {
 
       {/* Mouth - simple smile */}
       <motion.path
-        d={`M ${45 * scale} ${55 * scale} Q ${55 * scale} ${62 * scale} ${65 * scale} ${55 * scale}`}
+        d={`M ${54 * scale} ${55 * scale} Q ${64 * scale} ${62 * scale} ${74 * scale} ${55 * scale}`}
         stroke="#A8E66E"
         strokeWidth={2.5 * scale}
         fill="none"

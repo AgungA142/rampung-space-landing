@@ -1,5 +1,6 @@
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
+import { createAdminClient } from "@/lib/supabase/admin";
 import AdminShell from "@/components/admin/AdminShell";
 import type { AdminProfile } from "@/types/admin";
 
@@ -13,7 +14,9 @@ export default async function AdminDashboardLayout({ children }: { children: Rea
     redirect("/admin/login");
   }
 
-  const { data: profile } = await supabase
+  // Use admin client to bypass RLS (avoids recursive policy on admin_profiles)
+  const adminSupabase = createAdminClient();
+  const { data: profile } = await adminSupabase
     .from("admin_profiles")
     .select("*")
     .eq("id", user.id)
