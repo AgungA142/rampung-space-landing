@@ -89,7 +89,7 @@ export default function Footer() {
         </div>
 
         {/* Bottom */}
-        <div className="border-t border-slate-grey/10 mt-8 pt-8 flex items-center justify-between">
+        <div className="border-t border-slate-grey/10 mt-8 pt-8 flex flex-wrap items-center justify-between gap-4">
           <p className="text-slate-grey text-xs">{t.footer.copyright}</p>
           <Braco mood="idle" size={40} showParticles={false} />
         </div>

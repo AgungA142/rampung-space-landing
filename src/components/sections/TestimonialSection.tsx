@@ -78,7 +78,7 @@ export default function TestimonialSection() {
 
   return (
     <motion.section
-      className="py-20 md:py-28"
+      className="py-20 md:py-28 overflow-hidden"
       variants={containerVariants}
       initial="hidden"
       whileInView="visible"

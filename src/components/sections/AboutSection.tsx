@@ -33,7 +33,7 @@ export default function AboutSection() {
   return (
     <motion.section
       id="tentang"
-      className="py-20 md:py-28"
+      className="py-20 md:py-28 overflow-hidden"
       variants={containerVariants}
       initial="hidden"
       whileInView="visible"

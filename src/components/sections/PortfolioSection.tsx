@@ -62,7 +62,7 @@ export default function PortfolioSection() {
   return (
     <motion.section
       id="portfolio"
-      className="py-20 md:py-28"
+      className="py-20 md:py-28 overflow-hidden"
       variants={containerVariants}
       initial="hidden"
       whileInView="visible"

@@ -20,7 +20,7 @@ export default function LogicalLogic() {
   return (
     <motion.section
       id="diagnostic"
-      className="py-20 md:py-28 relative"
+      className="py-20 md:py-28 relative overflow-hidden"
       variants={containerVariants}
       initial="hidden"
       whileInView="visible"

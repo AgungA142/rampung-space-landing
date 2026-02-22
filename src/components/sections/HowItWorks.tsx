@@ -65,7 +65,7 @@ export default function HowItWorks() {
     <motion.section
       ref={sectionRef}
       id="cara-kerja"
-      className="py-20 md:py-28"
+      className="py-20 md:py-28 overflow-hidden"
       variants={containerVariants}
       initial="hidden"
       whileInView="visible"

@@ -63,7 +63,7 @@ export default function ServicesSection() {
   return (
     <motion.section
       id="layanan"
-      className="py-20 md:py-28 relative"
+      className="py-20 md:py-28 relative overflow-hidden"
       variants={containerVariants}
       initial="hidden"
       whileInView="visible"
