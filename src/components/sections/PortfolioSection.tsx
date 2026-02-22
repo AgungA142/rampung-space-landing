@@ -1,7 +1,8 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { FolderOpen } from "lucide-react";
+import { useState, useEffect, useCallback } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { FolderOpen, ChevronLeft, ChevronRight } from "lucide-react";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
 import { Card } from "@/components/ui/Card";
 import { Badge } from "@/components/ui/Badge";
@@ -53,11 +54,114 @@ const placeholderPortfolios = [
 
 export default function PortfolioSection() {
   const { locale, t } = useLanguage();
+  const portfolios = placeholderPortfolios;
+  const total = portfolios.length;
+
+  const [mobileIndex, setMobileIndex] = useState(0);
+  const [desktopPage, setDesktopPage] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
+
+  const desktopGroupSize = 3;
+  const totalDesktopPages = Math.ceil(total / desktopGroupSize);
+  const hasDesktopNav = totalDesktopPages > 1;
+
+  const desktopGroups: (typeof portfolios)[] = [];
+  for (let i = 0; i < total; i += desktopGroupSize) {
+    desktopGroups.push(portfolios.slice(i, i + desktopGroupSize));
+  }
+
+  const nextMobile = useCallback(() => setMobileIndex((i) => (i + 1) % total), [total]);
+  const prevMobile = useCallback(() => setMobileIndex((i) => (i - 1 + total) % total), [total]);
+  const nextDesktop = useCallback(
+    () => setDesktopPage((p) => (p + 1) % totalDesktopPages),
+    [totalDesktopPages]
+  );
+  const prevDesktop = useCallback(
+    () => setDesktopPage((p) => (p - 1 + totalDesktopPages) % totalDesktopPages),
+    [totalDesktopPages]
+  );
+
+  useEffect(() => {
+    if (isPaused) return;
+    const timer = setInterval(() => {
+      nextMobile();
+      if (hasDesktopNav) nextDesktop();
+    }, 5000);
+    return () => clearInterval(timer);
+  }, [isPaused, nextMobile, nextDesktop, hasDesktopNav]);
 
   const scrollTo = (href: string) => {
     const el = document.querySelector(href);
     if (el) el.scrollIntoView({ behavior: "smooth" });
   };
+
+  const renderCard = (project: (typeof portfolios)[0]) => (
+    <Card variant="interactive" padding="none" className="h-full flex flex-col">
+      {/* Thumbnail placeholder */}
+      <div className="aspect-video bg-gradient-to-br from-pistachio/10 to-pistachio-deep/10 rounded-t-2xl flex items-center justify-center">
+        <FolderOpen size={40} className="text-pistachio/30" />
+      </div>
+
+      <div className="flex flex-col flex-1 p-4">
+        {/* Tags */}
+        <div className="flex gap-2">
+          {project.tags.map((tag) => (
+            <Badge key={tag} variant="primary" size="sm">
+              {tag}
+            </Badge>
+          ))}
+        </div>
+
+        {/* Title */}
+        <h3 className="font-[family-name:var(--font-sora)] text-xl font-bold text-white mt-3">
+          {project.title}
+        </h3>
+
+        {/* Challenge */}
+        <div className="mt-3">
+          <span className="text-xs font-[family-name:var(--font-space-mono)] text-pistachio uppercase tracking-wider">
+            THE CHALLENGE
+          </span>
+          <p className="text-slate-grey text-sm mt-1">
+            {locale === "en" ? project.challengeEn : project.challenge}
+          </p>
+        </div>
+
+        {/* Solution */}
+        <div className="mt-3">
+          <span className="text-xs font-[family-name:var(--font-space-mono)] text-pistachio uppercase tracking-wider">
+            THE SOLUTION
+          </span>
+          <p className="text-slate-grey text-sm mt-1">
+            {locale === "en" ? project.solutionEn : project.solution}
+          </p>
+        </div>
+
+        {/* Tech Stack */}
+        <div className="flex gap-2 flex-wrap mt-4">
+          {project.techStack.map((tech) => (
+            <span
+              key={tech}
+              className="bg-midnight text-slate-grey text-xs px-2 py-1 rounded border border-slate-grey/20"
+            >
+              {tech}
+            </span>
+          ))}
+        </div>
+
+        {/* CTA */}
+        <div className="mt-auto pt-4">
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={() => scrollTo("#diagnostic")}
+          >
+            {t.portfolio.cta}
+          </Button>
+        </div>
+      </div>
+    </Card>
+  );
 
   return (
     <motion.section
@@ -76,77 +180,132 @@ export default function PortfolioSection() {
           {t.portfolio.heading}
         </motion.h2>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {placeholderPortfolios.map((project) => (
-            <motion.div key={project.id} variants={itemVariants}>
-              <Card variant="interactive" padding="none" className="h-full flex flex-col">
-                {/* Thumbnail placeholder */}
-                <div className="aspect-video bg-gradient-to-br from-pistachio/10 to-pistachio-deep/10 rounded-t-2xl flex items-center justify-center">
-                  <FolderOpen size={40} className="text-pistachio/30" />
-                </div>
-
-                <div className="flex flex-col flex-1 p-4">
-                  {/* Tags */}
-                  <div className="flex gap-2">
-                    {project.tags.map((tag) => (
-                      <Badge key={tag} variant="primary" size="sm">
-                        {tag}
-                      </Badge>
+        {/* Desktop (md+): 3 cards per view */}
+        <motion.div
+          variants={itemVariants}
+          className="hidden md:block"
+          {...(hasDesktopNav
+            ? {
+                onMouseEnter: () => setIsPaused(true),
+                onMouseLeave: () => setIsPaused(false),
+                onTouchStart: () => setIsPaused(true),
+                onTouchEnd: () => setIsPaused(false),
+              }
+            : {})}
+        >
+          {hasDesktopNav ? (
+            <>
+              <div className="overflow-hidden">
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={desktopPage}
+                    className="grid grid-cols-3 gap-6"
+                    initial={{ opacity: 0, x: 50 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: -50 }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    {desktopGroups[desktopPage].map((project) => (
+                      <div key={project.id}>{renderCard(project)}</div>
                     ))}
-                  </div>
-
-                  {/* Title */}
-                  <h3 className="font-[family-name:var(--font-sora)] text-xl font-bold text-white mt-3">
-                    {project.title}
-                  </h3>
-
-                  {/* Challenge */}
-                  <div className="mt-3">
-                    <span className="text-xs font-[family-name:var(--font-space-mono)] text-pistachio uppercase tracking-wider">
-                      THE CHALLENGE
-                    </span>
-                    <p className="text-slate-grey text-sm mt-1">
-                      {locale === "en" ? project.challengeEn : project.challenge}
-                    </p>
-                  </div>
-
-                  {/* Solution */}
-                  <div className="mt-3">
-                    <span className="text-xs font-[family-name:var(--font-space-mono)] text-pistachio uppercase tracking-wider">
-                      THE SOLUTION
-                    </span>
-                    <p className="text-slate-grey text-sm mt-1">
-                      {locale === "en" ? project.solutionEn : project.solution}
-                    </p>
-                  </div>
-
-                  {/* Tech Stack */}
-                  <div className="flex gap-2 flex-wrap mt-4">
-                    {project.techStack.map((tech) => (
-                      <span
-                        key={tech}
-                        className="bg-midnight text-slate-grey text-xs px-2 py-1 rounded border border-slate-grey/20"
-                      >
-                        {tech}
-                      </span>
-                    ))}
-                  </div>
-
-                  {/* CTA */}
-                  <div className="mt-auto pt-4">
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      onClick={() => scrollTo("#diagnostic")}
-                    >
-                      {t.portfolio.cta}
-                    </Button>
-                  </div>
+                  </motion.div>
+                </AnimatePresence>
+              </div>
+              {/* Desktop nav */}
+              <div className="flex items-center justify-center gap-4 mt-6">
+                <button
+                  onClick={prevDesktop}
+                  className="p-2 rounded-full text-slate-grey hover:text-pistachio hover:bg-pistachio/10 transition-colors cursor-pointer"
+                  aria-label="Previous"
+                >
+                  <ChevronLeft size={20} />
+                </button>
+                <div className="flex gap-2">
+                  {desktopGroups.map((_, i) => (
+                    <button
+                      key={i}
+                      onClick={() => setDesktopPage(i)}
+                      className={`w-2 h-2 rounded-full transition-colors cursor-pointer ${
+                        i === desktopPage ? "bg-pistachio" : "bg-slate-grey/30"
+                      }`}
+                      aria-label={`Go to page ${i + 1}`}
+                    />
+                  ))}
                 </div>
-              </Card>
-            </motion.div>
-          ))}
-        </div>
+                <button
+                  onClick={nextDesktop}
+                  className="p-2 rounded-full text-slate-grey hover:text-pistachio hover:bg-pistachio/10 transition-colors cursor-pointer"
+                  aria-label="Next"
+                >
+                  <ChevronRight size={20} />
+                </button>
+              </div>
+            </>
+          ) : (
+            <div className="grid grid-cols-3 gap-6">
+              {portfolios.map((project) => (
+                <div key={project.id}>{renderCard(project)}</div>
+              ))}
+            </div>
+          )}
+        </motion.div>
+
+        {/* Mobile: 1 card carousel */}
+        <motion.div
+          variants={itemVariants}
+          className="md:hidden relative"
+          onMouseEnter={() => setIsPaused(true)}
+          onMouseLeave={() => setIsPaused(false)}
+          onTouchStart={() => setIsPaused(true)}
+          onTouchEnd={() => setIsPaused(false)}
+        >
+          <div className="overflow-hidden">
+            <AnimatePresence mode="wait">
+              {portfolios.map((project, i) =>
+                i === mobileIndex ? (
+                  <motion.div
+                    key={project.id}
+                    initial={{ opacity: 0, x: 50 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: -50 }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    {renderCard(project)}
+                  </motion.div>
+                ) : null
+              )}
+            </AnimatePresence>
+          </div>
+          {/* Mobile nav */}
+          <div className="flex items-center justify-center gap-4 mt-4">
+            <button
+              onClick={prevMobile}
+              className="p-2 rounded-full text-slate-grey hover:text-pistachio hover:bg-pistachio/10 transition-colors cursor-pointer"
+              aria-label="Previous"
+            >
+              <ChevronLeft size={20} />
+            </button>
+            <div className="flex gap-2">
+              {portfolios.map((_, i) => (
+                <button
+                  key={i}
+                  onClick={() => setMobileIndex(i)}
+                  className={`w-2 h-2 rounded-full transition-colors cursor-pointer ${
+                    i === mobileIndex ? "bg-pistachio" : "bg-slate-grey/30"
+                  }`}
+                  aria-label={`Go to project ${i + 1}`}
+                />
+              ))}
+            </div>
+            <button
+              onClick={nextMobile}
+              className="p-2 rounded-full text-slate-grey hover:text-pistachio hover:bg-pistachio/10 transition-colors cursor-pointer"
+              aria-label="Next"
+            >
+              <ChevronRight size={20} />
+            </button>
+          </div>
+        </motion.div>
       </div>
     </motion.section>
   );
