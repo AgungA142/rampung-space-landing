@@ -40,23 +40,11 @@ const faqs = [
     answerEn: "Yes, we offer optional maintenance packages. Including bug fixing, minor updates, and performance monitoring.",
   },
   {
-    questionId: "Teknologi apa yang digunakan?",
-    questionEn: "What technologies do you use?",
-    answerId: "Kami menggunakan tech stack modern: React/Next.js untuk frontend, Node.js/Python untuk backend, PostgreSQL untuk database, dan cloud services (AWS/Vercel) untuk deployment.",
-    answerEn: "We use modern tech stack: React/Next.js for frontend, Node.js/Python for backend, PostgreSQL for database, and cloud services (AWS/Vercel) for deployment.",
-  },
-  {
     questionId: "Bagaimana kalau saya baru punya ide kasar?",
     questionEn: "What if I only have a rough idea?",
     answerId: "Sempurna! Justru itu yang kami suka. Gunakan tool Diagnosa Proyek kami untuk mulai, lalu kami bantu bentuk ide Anda menjadi konsep produk yang jelas.",
     answerEn: "Perfect! That's exactly what we love. Use our Project Diagnosis tool to start, then we'll help shape your idea into a clear product concept.",
-  },
-  {
-    questionId: "Apakah kode sumbernya milik saya?",
-    questionEn: "Do I own the source code?",
-    answerId: "Ya, 100%. Setelah proyek selesai dan pembayaran lunas, seluruh kode sumber, dokumentasi, dan aset menjadi milik Anda sepenuhnya.",
-    answerEn: "Yes, 100%. After the project is completed and payment is settled, all source code, documentation, and assets become fully yours.",
-  },
+  }
 ];
 
 export default function FAQSection() {

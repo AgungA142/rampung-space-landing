@@ -17,6 +17,15 @@
     "clients": "klien",
     "projects": "proyek selesai"
   },
+  "trustMarkers": {
+    "items": [
+      "🚀 Validasi ide startup",
+      "🏪 UMKM go-digital",
+      "⚡ Efisiensi operasional",
+      "🔧 Optimasi sistem",
+      "🎯 Produk siap rilis"
+    ]
+  },
   "services": {
     "heading": "Apa yang Bisa Kami Rampungkan",
     "primaryFocus": "FOKUS UTAMA",
@@ -31,14 +40,6 @@
     "mobileApp": {
       "title": "Mobile App",
       "description": "Aplikasi mobile native dan cross-platform yang intuitif."
-    },
-    "api": {
-      "title": "API & Backend",
-      "description": "Sistem backend yang robust, aman, dan siap untuk skala besar."
-    },
-    "uiux": {
-      "title": "UI/UX Design",
-      "description": "Desain antarmuka yang indah dan pengalaman pengguna yang mulus."
     },
     "consultation": {
       "title": "Tech Consultation",
@@ -143,16 +144,16 @@
     "heading": "Space for Ideas. Rampung for Results.",
     "values": {
       "resultOriented": {
-        "title": "Result-Oriented",
-        "description": "Kami fokus pada produk yang benar-benar selesai."
+        "title": "Tuntas Beres",
+        "description": "Kami fokus pada produk yang siap dipakai."
       },
       "transparent": {
-        "title": "Transparent",
+        "title": "No Drama",
         "description": "Update mingguan, tidak ada surprise."
       },
       "modernStack": {
-        "title": "Modern Stack",
-        "description": "Teknologi terkini untuk performa optimal."
+        "title": "Cepat & Tepat",
+        "description": "Fokus ke solusi, fungsi dan rampung."
       }
     }
   },
@@ -176,16 +177,8 @@
         "answer": "Ya, kami menyediakan paket maintenance dan support setelah launch untuk memastikan produk berjalan optimal."
       },
       {
-        "question": "Teknologi apa yang digunakan?",
-        "answer": "Kami menggunakan teknologi modern seperti React, Next.js, Node.js, Python, dan cloud infrastructure terpercaya."
-      },
-      {
         "question": "Bagaimana kalau saya baru punya ide kasar?",
         "answer": "Justru itu yang kami bantu! Mulai dari diagnosa proyek gratis, kami akan membantu Anda mematangkan ide menjadi rencana yang actionable."
-      },
-      {
-        "question": "Apakah kode sumbernya milik saya?",
-        "answer": "Ya, semua kode sumber dan aset yang kami buat sepenuhnya menjadi milik Anda setelah proyek selesai."
       }
     ]
   },

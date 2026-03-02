@@ -22,13 +22,20 @@ const values = [
   { icon: Zap, key: "modernStack" as const },
 ];
 
-/* TODO: Replace with real team data */
-const team = [
-  { name: "Founder", role: "CEO & Lead Developer", initials: "RS" },
-];
+
 
 export default function AboutSection() {
   const { locale, t } = useLanguage();
+
+  // Ganti dengan maskot Braco sebagai teman
+  const team = [
+    {
+      name: "Braco",
+      role: locale === "en" ? "Your friendly project companion" : "Teman proyek Anda",
+      initials: <Braco mood="idle" size={48} showParticles={false} />,
+      isMascot: true,
+    },
+  ];
 
   return (
     <motion.section
@@ -87,7 +94,7 @@ export default function AboutSection() {
               <div className="flex items-center gap-4">
                 {team.map((member, i) => (
                   <div key={i} className="flex items-center gap-3">
-                    <div className="w-12 h-12 rounded-full bg-pistachio-deep flex items-center justify-center text-white font-[family-name:var(--font-sora)] font-bold">
+                    <div className="w-12 h-12 flex items-center justify-center overflow-hidden">
                       {member.initials}
                     </div>
                     <div>

@@ -38,20 +38,6 @@ export default function ServicesSection() {
         : "Performant and user-friendly Android mobile applications.",
     },
     {
-      icon: Server,
-      title: locale === "id" ? "API & Backend Systems" : "API & Backend Systems",
-      desc: locale === "id"
-        ? "Arsitektur backend yang robust, API yang well-documented, dan database yang optimal."
-        : "Robust backend architecture, well-documented APIs, and optimized databases.",
-    },
-    {
-      icon: Palette,
-      title: locale === "id" ? "UI/UX Design" : "UI/UX Design",
-      desc: locale === "id"
-        ? "Desain interface yang intuitif dan pengalaman pengguna yang menyenangkan."
-        : "Intuitive interface design and delightful user experience.",
-    },
-    {
       icon: MessageSquare,
       title: locale === "id" ? "Tech Consultation" : "Tech Consultation",
       desc: locale === "id"

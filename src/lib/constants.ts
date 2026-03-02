@@ -1,7 +1,7 @@
 export const BRAND = {
   name: "rampung.space",
   tagline: "Make Space. Get Rampung.",
-  email: "hello@rampung.space",
+  email: "rampung.space@gmail.com",
   copyright: `© ${new Date().getFullYear()} rampung.space — Make Space. Get Rampung.`,
 } as const;
 
