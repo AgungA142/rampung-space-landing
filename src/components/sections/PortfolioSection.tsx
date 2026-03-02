@@ -21,34 +21,37 @@ const itemVariants = {
 /* TODO: Remove placeholders when real data available */
 const placeholderPortfolios = [
   {
-    id: "placeholder-1",
-    title: "KopiOps: Supply Chain Dashboard",
-    challenge: "Manajemen supply chain kopi dari petani ke roaster masih manual, rawan error, dan sulit dilacak.",
-    challengeEn: "Coffee supply chain management from farmer to roaster was still manual, error-prone, and hard to track.",
-    solution: "Dashboard real-time yang menghubungkan petani, pengepul, dan roaster dalam satu platform.",
-    solutionEn: "Real-time dashboard connecting farmers, collectors, and roasters in one platform.",
-    techStack: ["React", "Node.js", "PostgreSQL", "AWS"],
-    tags: ["MVP", "Web App"],
+    id: "pratis",
+    title: "Pratis: Praktis Tamu Informasi Sistem",
+    titleEn: "Pratis: Smart Wedding & Event Management",
+    challenge: "Calon pengantin kesulitan mengelola undangan, RSVP, dan check-in tamu secara manual. Proses tradisional memakan waktu, biaya mahal, dan rawan kesalahan.",
+    challengeEn: "Couples struggle to manage invitations, RSVPs, and guest check-ins manually. Traditional processes are time-consuming, costly, and error-prone.",
+    solution: "Platform all-in-one untuk undangan digital estetis, manajemen tamu real-time, dan validasi kehadiran dengan QR Code. Model Pay-per-Event memudahkan monetisasi.",
+    solutionEn: "All-in-one platform for aesthetic digital invitations, real-time guest management, and QR Code check-in validation. Pay-per-Event model enables clear monetization.",
+    tags: ["Web App", "SAAS"],
+    url: "https://pratis.rampung.space/",
   },
   {
-    id: "placeholder-2",
-    title: "EduTrack: Student Progress Tracker",
-    challenge: "Sekolah kesulitan memantau progress belajar murid secara real-time dan memberikan feedback yang personalized.",
-    challengeEn: "Schools struggled to monitor student learning progress in real-time and provide personalized feedback.",
-    solution: "Aplikasi mobile yang memungkinkan guru input progress harian dan orang tua memantau.",
-    solutionEn: "Mobile app enabling teachers to input daily progress and parents to monitor.",
-    techStack: ["Flutter", "Firebase", "Python"],
-    tags: ["MVP", "Mobile App"],
+    id: "rakit",
+    title: "Rakit: Rapi Kontrol Inventori Tertata",
+    titleEn: "Rakit: Smart Inventory & Order Tracking",
+    challenge: "Bisnis kesulitan melacak inventory dan status pesanan secara real-time, menyebabkan keterlambatan dan ketidakpuasan pelanggan.",
+    challengeEn: "Businesses struggle to track inventory and order status in real-time, causing delays and customer dissatisfaction.",
+    solution: "Sistem terintegrasi untuk manajemen inventory, tracking pesanan end-to-end, dan notifikasi otomatis ke pelanggan.",
+    solutionEn: "Integrated system for inventory management, end-to-end order tracking, and automated customer notifications.",
+    tags: ["Mobile App", "Inventory"],
+    url: "https://rakit.rampung.space/",
   },
   {
-    id: "placeholder-3",
-    title: "PajakKu: Tax Filing Simplified",
-    challenge: "UMKM kesulitan menghitung dan melaporkan pajak karena proses yang rumit dan berubah-ubah.",
-    challengeEn: "SMEs struggled with calculating and filing taxes due to complex and ever-changing processes.",
-    solution: "Web app wizard yang memandu UMKM step-by-step dalam menghitung dan melaporkan pajak.",
-    solutionEn: "Web app wizard guiding SMEs step-by-step in calculating and filing taxes.",
-    techStack: ["Next.js", "Supabase", "Tailwind CSS"],
-    tags: ["Web App"],
+    id: "catut",
+    title: "Catut: Catatan Uang",
+    titleEn: "Catut: Financial Management",
+    challenge: "Tim dan UMKM kesulitan mencatat keuangan secara konsisten dan melacak hutang piutang antar anggota.",
+    challengeEn: "Teams and SMEs struggle to consistently track finances and manage debts between members.",
+    solution: "Telegram Bot dengan NLP untuk catat transaksi natural, OCR untuk scan nota, fitur histori, saldo, dan manajemen hutang tim.",
+    solutionEn: "Telegram Bot with NLP for natural transaction recording, OCR for receipt scanning, history feature, balance check, and team debt management.",
+    tags: ["Telegram Bot", "AI", "Fintech"],
+    url: "https://t.me/SarekatBot",
   },
 ];
 
@@ -95,73 +98,101 @@ export default function PortfolioSection() {
     if (el) el.scrollIntoView({ behavior: "smooth" });
   };
 
-  const renderCard = (project: (typeof portfolios)[0]) => (
-    <Card variant="interactive" padding="none" className="h-full flex flex-col">
-      {/* Thumbnail placeholder */}
-      <div className="aspect-video bg-gradient-to-br from-pistachio/10 to-pistachio-deep/10 rounded-t-2xl flex items-center justify-center">
-        <FolderOpen size={40} className="text-pistachio/30" />
+  const renderCard = (project: (typeof portfolios)[0]) => {
+    // Card click: go to url
+    const handleCardClick = (e: React.MouseEvent) => {
+      if ((e.target as HTMLElement).closest("button")) return;
+      if (project.url) {
+        window.open(project.url, "_blank", "noopener,noreferrer");
+      }
+    };
+
+    return (
+      <div
+        className="h-full flex flex-col cursor-pointer"
+        onClick={handleCardClick}
+        role="button"
+        tabIndex={0}
+        onKeyPress={(e) => {
+          if (e.key === "Enter" || e.key === " ") {
+            handleCardClick(e as any);
+          }
+        }}
+      >
+        <Card variant="interactive" padding="none" className="h-full flex flex-col">
+          {/* Thumbnail placeholder */}
+          {/* <div className="aspect-video bg-linear-to-br from-pistachio/10 to-pistachio-deep/10 rounded-t-2xl flex items-center justify-center overflow-hidden">
+            <img src={project.imageUrl} alt={project.title} className="w-full h-full object-cover" />
+          </div> */}
+          <div className="aspect-video bg-gradient-to-br from-pistachio/10 to-pistachio-deep/10 rounded-t-2xl flex items-center justify-center">
+            <FolderOpen size={40} className="text-pistachio/30" />
+          </div>
+
+          <div className="flex flex-col flex-1 p-4">
+            {/* Tags */}
+            <div className="flex gap-2">
+              {project.tags.map((tag) => (
+                <Badge key={tag} variant="primary" size="sm">
+                  {tag}
+                </Badge>
+              ))}
+            </div>
+
+            {/* Title */}
+            <h3 className="font-sora text-xl font-bold text-white mt-3">
+              {locale === "en" ? project.titleEn : project.title}
+            </h3>
+
+            {/* Challenge */}
+            <div className="mt-3">
+              <span className="text-xs font-space-mono text-pistachio uppercase tracking-wider">
+                THE CHALLENGE
+              </span>
+              <p className="text-slate-grey text-sm mt-1">
+                {locale === "en" ? project.challengeEn : project.challenge}
+              </p>
+            </div>
+
+            {/* Solution */}
+            <div className="mt-3">
+              <span className="text-xs font-space-mono text-pistachio uppercase tracking-wider">
+                THE SOLUTION
+              </span>
+              <p className="text-slate-grey text-sm mt-1">
+                {locale === "en" ? project.solutionEn : project.solution}
+              </p>
+            </div>
+
+            {/* Tech Stack */}
+            <div className="flex gap-2 flex-wrap mt-4">
+              {project.tags.map((tech) => (
+                <span
+                  key={tech}
+                  className="bg-midnight text-slate-grey text-xs px-2 py-1 rounded border border-slate-grey/20"
+                >
+                  {tech}
+                </span>
+              ))}
+            </div>
+
+            {/* CTA */}
+            <div className="mt-auto pt-4">
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  scrollTo("#diagnostic");
+                }}
+              >
+                {t.portfolio.cta}
+              </Button>
+            </div>
+          </div>
+        </Card>
       </div>
-
-      <div className="flex flex-col flex-1 p-4">
-        {/* Tags */}
-        <div className="flex gap-2">
-          {project.tags.map((tag) => (
-            <Badge key={tag} variant="primary" size="sm">
-              {tag}
-            </Badge>
-          ))}
-        </div>
-
-        {/* Title */}
-        <h3 className="font-[family-name:var(--font-sora)] text-xl font-bold text-white mt-3">
-          {project.title}
-        </h3>
-
-        {/* Challenge */}
-        <div className="mt-3">
-          <span className="text-xs font-[family-name:var(--font-space-mono)] text-pistachio uppercase tracking-wider">
-            THE CHALLENGE
-          </span>
-          <p className="text-slate-grey text-sm mt-1">
-            {locale === "en" ? project.challengeEn : project.challenge}
-          </p>
-        </div>
-
-        {/* Solution */}
-        <div className="mt-3">
-          <span className="text-xs font-[family-name:var(--font-space-mono)] text-pistachio uppercase tracking-wider">
-            THE SOLUTION
-          </span>
-          <p className="text-slate-grey text-sm mt-1">
-            {locale === "en" ? project.solutionEn : project.solution}
-          </p>
-        </div>
-
-        {/* Tech Stack */}
-        <div className="flex gap-2 flex-wrap mt-4">
-          {project.techStack.map((tech) => (
-            <span
-              key={tech}
-              className="bg-midnight text-slate-grey text-xs px-2 py-1 rounded border border-slate-grey/20"
-            >
-              {tech}
-            </span>
-          ))}
-        </div>
-
-        {/* CTA */}
-        <div className="mt-auto pt-4">
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={() => scrollTo("#diagnostic")}
-          >
-            {t.portfolio.cta}
-          </Button>
-        </div>
-      </div>
-    </Card>
-  );
+    );
+  };
 
   return (
     <motion.section

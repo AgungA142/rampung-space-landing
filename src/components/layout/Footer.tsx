@@ -6,10 +6,7 @@ import { BRAND, NAVIGATION } from "@/lib/constants";
 import { Braco } from "@/components/braco/Braco";
 
 const socialLinks = [
-  { name: "Twitter", href: "#" },
-  { name: "LinkedIn", href: "#" },
-  { name: "GitHub", href: "#" },
-  { name: "Instagram", href: "#" },
+  { name: "Instagram", href: "https://www.instagram.com/rampung_space?igsh=MWdrcTRoZXFpY252Yg==" },
 ];
 /* TODO: Add real social links */
 

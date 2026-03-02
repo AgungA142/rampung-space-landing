@@ -17,6 +17,15 @@
     "clients": "clients",
     "projects": "projects completed"
   },
+  "trustMarkers": {
+    "items": [
+      "🚀 Startup idea validation",
+      "🏪 MSME digital transformation",
+      "⚡ Operational efficiency",
+      "🔧 System optimization",
+      "🎯 Launch-ready product"
+    ]
+  },
   "services": {
     "heading": "What We Can Rampung",
     "primaryFocus": "PRIMARY FOCUS",
@@ -31,14 +40,6 @@
     "mobileApp": {
       "title": "Mobile App",
       "description": "Intuitive native and cross-platform mobile applications."
-    },
-    "api": {
-      "title": "API & Backend",
-      "description": "Robust, secure, and scalable backend systems."
-    },
-    "uiux": {
-      "title": "UI/UX Design",
-      "description": "Beautiful interfaces and seamless user experiences."
     },
     "consultation": {
       "title": "Tech Consultation",
@@ -136,7 +137,7 @@
     "heading": "What They Say"
   },
   "portfolio": {
-    "heading": "What We've Rampunged",
+    "heading": "What We've Done",
     "cta": "Need a system like this?"
   },
   "about": {
@@ -144,7 +145,7 @@
     "values": {
       "resultOriented": {
         "title": "Result-Oriented",
-        "description": "We focus on products that are truly complete."
+        "description": "We focus on ready-to-use products."
       },
       "transparent": {
         "title": "Transparent",
@@ -152,7 +153,7 @@
       },
       "modernStack": {
         "title": "Modern Stack",
-        "description": "Latest technology for optimal performance."
+        "description": "Focus on solutions, functions and completion."
       }
     }
   },
@@ -176,16 +177,8 @@
         "answer": "Yes, we provide maintenance and support packages after launch to ensure your product runs optimally."
       },
       {
-        "question": "What technologies do you use?",
-        "answer": "We use modern technologies like React, Next.js, Node.js, Python, and trusted cloud infrastructure."
-      },
-      {
         "question": "What if I only have a rough idea?",
         "answer": "That's exactly what we help with! Starting from a free project diagnosis, we'll help you refine your idea into an actionable plan."
-      },
-      {
-        "question": "Do I own the source code?",
-        "answer": "Yes, all source code and assets we create are fully yours after the project is completed."
       }
     ]
   },
