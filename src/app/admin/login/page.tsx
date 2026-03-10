@@ -29,7 +29,7 @@ export default function AdminLoginPage() {
       setError("Email atau password salah");
       setLoading(false);
     } else {
-      router.push("/admin");
+      window.location.href = "/admin";
     }
   };
 

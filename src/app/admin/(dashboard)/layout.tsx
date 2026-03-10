@@ -19,7 +19,7 @@ export default async function AdminDashboardLayout({ children }: { children: Rea
   const { data: profile } = await adminSupabase
     .from("admin_profiles")
     .select("*")
-    .eq("id", user.id)
+    .eq("user_id", user.id)
     .single();
 
   if (!profile) {
