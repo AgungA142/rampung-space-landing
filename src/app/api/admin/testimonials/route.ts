@@ -14,7 +14,7 @@ async function verifyAdmin() {
   const { data: profile } = await adminDb
     .from("admin_profiles")
     .select("id")
-    .eq("id", user.id)
+    .eq("user_id", user.id)
     .single();
 
   return profile ? user : null;
