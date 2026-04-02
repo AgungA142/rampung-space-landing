@@ -19,13 +19,13 @@ export const NAVIGATION = {
   id: [
     { label: "Layanan", href: "#layanan" },
     { label: "Cara Kerja", href: "#cara-kerja" },
-    { label: "Portfolio", href: "#portfolio" },
+    // { label: "Portfolio", href: "#portfolio" },
     { label: "Tentang Kami", href: "#tentang" },
   ],
   en: [
     { label: "Services", href: "#layanan" },
     { label: "How It Works", href: "#cara-kerja" },
-    { label: "Portfolio", href: "#portfolio" },
+    // { label: "Portfolio", href: "#portfolio" },
     { label: "About Us", href: "#tentang" },
   ],
 } as const;

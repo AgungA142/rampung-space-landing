@@ -33,6 +33,10 @@ export const metadata: Metadata = {
     "mobile app",
     "rampung space",
   ],
+  icons: {
+    icon: "/rampung_space.png",
+    apple: "/rampung_space.png",
+  },
   openGraph: {
     title: "rampung.space — Make Space. Get Rampung.",
     description:
