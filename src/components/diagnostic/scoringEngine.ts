@@ -29,7 +29,10 @@ function calculateFeaturesScore(features: Feature[]): number {
   if (features.length === 0) return 1;
 
   const totalWeight = features.reduce(
-    (sum, f) => sum + (SCORING.featureWeights[f] ?? 0),
+    (sum, feature) => {
+      const key = feature.trim().toLowerCase().replace(/\s+/g, "_");
+      return sum + (SCORING.featureWeights[key as keyof typeof SCORING.featureWeights] ?? 1);
+    },
     0
   );
 

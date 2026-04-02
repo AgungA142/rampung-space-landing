@@ -1,36 +1,54 @@
 "use client";
 
-import { Lock, CreditCard, Zap, BarChart3, Upload, Plug, Settings, MapPin, Check } from "lucide-react";
+import { useState, type KeyboardEvent } from "react";
+import { Plus, X } from "lucide-react";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
 import { Braco } from "@/components/braco/Braco";
-import type { DiagnosticFormData, Feature } from "@/types/diagnostic";
+import type { DiagnosticFormData } from "@/types/diagnostic";
+import { Button } from "@/components/ui/Button";
 
 interface StepFeaturesProps {
   data: DiagnosticFormData;
   errors: Record<string, string>;
-  onChange: (field: keyof DiagnosticFormData, value: Feature[]) => void;
+  onChange: (field: keyof DiagnosticFormData, value: string[]) => void;
 }
 
-const featureOptions: { value: Feature; icon: typeof Lock; labelId: string; labelEn: string }[] = [
-  { value: "auth", icon: Lock, labelId: "Autentikasi (Login/Register)", labelEn: "Authentication (Login/Register)" },
-  { value: "payment", icon: CreditCard, labelId: "Integrasi Pembayaran", labelEn: "Payment Integration" },
-  { value: "realtime", icon: Zap, labelId: "Fitur Real-time (Chat, Notifikasi)", labelEn: "Real-time Features (Chat, Notifications)" },
-  { value: "dashboard", icon: BarChart3, labelId: "Dashboard & Analitik", labelEn: "Dashboard & Analytics" },
-  { value: "file_upload", icon: Upload, labelId: "Upload & Manajemen File", labelEn: "File Upload & Management" },
-  { value: "third_party_api", icon: Plug, labelId: "Integrasi API Pihak Ketiga", labelEn: "Third-party API Integration" },
-  { value: "admin_panel", icon: Settings, labelId: "Admin Panel / CMS", labelEn: "Admin Panel / CMS" },
-  { value: "geolocation", icon: MapPin, labelId: "Geolokasi / Maps", labelEn: "Geolocation / Maps" },
+const suggestions = [
+  "dashboard",
+  "android",
 ];
 
 export default function StepFeatures({ data, errors, onChange }: StepFeaturesProps) {
   const { locale } = useLanguage();
+  const [draft, setDraft] = useState("");
+  const features = data.features || [];
 
-  const toggle = (feature: Feature) => {
-    const current = data.features || [];
-    const next = current.includes(feature)
-      ? current.filter((f) => f !== feature)
-      : [...current, feature];
-    onChange("features", next);
+  const addFeature = (rawValue: string) => {
+    const value = rawValue.trim().replace(/\s+/g, " ");
+    if (!value) return;
+
+    const exists = features.some((feature) => feature.toLowerCase() === value.toLowerCase());
+    if (exists) {
+      setDraft("");
+      return;
+    }
+
+    onChange("features", [...features, value]);
+    setDraft("");
+  };
+
+  const removeFeature = (featureToRemove: string) => {
+    onChange(
+      "features",
+      features.filter((feature) => feature !== featureToRemove)
+    );
+  };
+
+  const handleKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === "Enter" || event.key === ",") {
+      event.preventDefault();
+      addFeature(draft);
+    }
   };
 
   return (
@@ -46,39 +64,74 @@ export default function StepFeatures({ data, errors, onChange }: StepFeaturesPro
 
       <p className="text-sm text-slate-grey mb-3">
         {locale === "id"
-          ? "Pilih semua fitur yang relevan dengan proyek Anda:"
-          : "Select all features relevant to your project:"}
+          ? "Ketik fitur yang dibutuhkan, lalu tekan Enter atau tombol tambah."
+          : "Type the features you need, then press Enter or the add button."}
       </p>
 
       {errors.features && (
         <p className="text-sm text-red-400 mb-3">{errors.features}</p>
       )}
 
-      <div className="grid grid-cols-2 gap-3">
-        {featureOptions.map((opt) => {
-          const Icon = opt.icon;
-          const selected = (data.features || []).includes(opt.value);
-          return (
+      <div className="rounded-2xl border border-white/10 bg-navy p-3 md:p-4">
+        <div className="flex items-center gap-2">
+          <input
+            type="text"
+            value={draft}
+            onChange={(event) => setDraft(event.target.value)}
+            onKeyDown={handleKeyDown}
+            placeholder={locale === "id" ? "Contoh: web, android" : "Example: web, android"}
+            className="h-11 flex-1 rounded-xl border border-white/10 bg-navy-light px-4 text-sm text-white outline-none transition focus:border-pistachio"
+          />
+          <Button
+            type="button"
+            variant="primary"
+            size="md"
+            iconRight={<Plus size={16} />}
+            onClick={() => addFeature(draft)}
+          >
+            {locale === "id" ? "Tambah" : "Add"}
+          </Button>
+        </div>
+
+        <p className="mt-3 text-xs text-slate-grey">
+          {locale === "id"
+            ? "Tips: tombol tambah membantu saat keyboard HP tidak nyaman untuk submit dengan Enter."
+            : "Tip: the add button helps on mobile keyboards where Enter is less convenient."}
+        </p>
+
+        {features.length > 0 && (
+          <div className="mt-4 flex flex-wrap gap-2">
+            {features.map((feature) => (
+              <span
+                key={feature}
+                className="inline-flex items-center gap-2 rounded-full border border-pistachio/40 bg-pistachio/10 px-3 py-2 text-sm text-white"
+              >
+                {feature}
+                <button
+                  type="button"
+                  aria-label={locale === "id" ? `Hapus ${feature}` : `Remove ${feature}`}
+                  onClick={() => removeFeature(feature)}
+                  className="rounded-full p-0.5 text-pistachio transition hover:bg-white/10"
+                >
+                  <X size={14} />
+                </button>
+              </span>
+            ))}
+          </div>
+        )}
+
+        <div className="mt-4 flex flex-wrap gap-2">
+          {suggestions.map((suggestion) => (
             <button
-              key={opt.value}
+              key={suggestion}
               type="button"
-              onClick={() => toggle(opt.value)}
-              className={`relative text-left p-3 md:p-4 rounded-xl border-2 transition-all duration-200 cursor-pointer ${
-                selected
-                  ? "border-pistachio bg-pistachio/10 shadow-[0_0_15px_rgba(168,230,110,0.15)]"
-                  : "border-white/10 bg-navy hover:border-pistachio/50 hover:bg-pistachio/5"
-              }`}
+              onClick={() => addFeature(suggestion)}
+              className="rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-xs text-slate-grey transition hover:border-pistachio/50 hover:text-white"
             >
-              {selected && (
-                <Check size={16} className="absolute top-2 right-2 text-pistachio" />
-              )}
-              <Icon size={20} className="text-pistachio mb-1.5" />
-              <p className="text-white font-medium text-xs md:text-sm leading-tight">
-                {locale === "id" ? opt.labelId : opt.labelEn}
-              </p>
+              {suggestion}
             </button>
-          );
-        })}
+          ))}
+        </div>
       </div>
     </div>
   );

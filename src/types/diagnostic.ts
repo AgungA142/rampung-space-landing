@@ -1,18 +1,10 @@
 export type Platform = "web_app" | "mobile_android" | "other";
-export type TargetUser = "internal" | "b2b" | "b2c" | "marketplace" | "unknown";
+export type TargetUser = "internal" | "public" | "unknown";
 export type Timeline = "urgent" | "normal" | "flexible" | "long_term" | "undecided";
 export type ComplexityLevel = "Low" | "Medium" | "High" | "Enterprise";
 export type SubmissionStatus = "new" | "contacted" | "in_progress" | "completed" | "archived";
 
-export type Feature =
-  | "auth"
-  | "payment"
-  | "realtime"
-  | "dashboard"
-  | "file_upload"
-  | "third_party_api"
-  | "admin_panel"
-  | "geolocation";
+export type Feature = string;
 
 export interface DiagnosticSubmission {
   id: string;

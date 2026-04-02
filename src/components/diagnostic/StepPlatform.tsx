@@ -35,7 +35,7 @@ export default function StepPlatform({ data, errors, onChange }: StepPlatformPro
     value: "other" as Platform,
     icon: Plus,
     label: locale === "id" ? "Lainnya" : "Other",
-    sub: "iOS, Desktop, Cross-platform, dll.",
+    sub: locale === "id" ? "Konsultasi terlebih dahulu" : "Consultation first",
   };
 
   const select = (value: Platform) => onChange("platform", value);

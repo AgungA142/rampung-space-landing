@@ -21,7 +21,7 @@ export default function Home() {
         <HowItWorks />
         <LogicalLogic />
         {/* <TestimonialSection /> */}
-        <PortfolioSection />
+        {/* <PortfolioSection /> */}
         <AboutSection />
         <FAQSection />
       </main>

@@ -14,7 +14,7 @@ import StepFeatures from "./StepFeatures";
 import StepTimeline from "./StepTimeline";
 import ProcessingScreen from "./ProcessingScreen";
 import ThankYouScreen from "./ThankYouScreen";
-import type { DiagnosticFormData, Feature } from "@/types/diagnostic";
+import type { DiagnosticFormData } from "@/types/diagnostic";
 
 const TOTAL_STEPS = 6;
 
@@ -55,7 +55,7 @@ export default function DiagnosticWizard() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [phase, setPhase] = useState<"wizard" | "processing" | "thankYou">("wizard");
 
-  const updateField = useCallback((field: keyof DiagnosticFormData, value: string | Feature[]) => {
+  const updateField = useCallback((field: keyof DiagnosticFormData, value: string | string[]) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
     setErrors((prev) => {
       const next = { ...prev };
@@ -223,7 +223,7 @@ export default function DiagnosticWizard() {
               <StepTargetUser data={formData} errors={errors} onChange={updateField} />
             )}
             {currentStep === 4 && (
-              <StepFeatures data={formData} errors={errors} onChange={updateField as (field: keyof DiagnosticFormData, value: Feature[]) => void} />
+              <StepFeatures data={formData} errors={errors} onChange={updateField as (field: keyof DiagnosticFormData, value: string[]) => void} />
             )}
             {currentStep === 5 && (
               <StepTimeline data={formData} errors={errors} onChange={updateField} />

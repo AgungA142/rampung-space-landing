@@ -69,14 +69,14 @@ export default function StepBudget({ data, onChange }: StepBudgetProps) {
           onChange={handleIDR}
           inputMode="numeric"
         />
-        <Input
+        {/* <Input
           label={locale === "id" ? "Budget (Dollar)" : "Budget (USD)"}
           prefix={<span className="text-sm font-semibold">$</span>}
           placeholder={locale === "id" ? "Contoh: 3500" : "e.g. 3500"}
           value={data.budget_usd ? formatUSD(data.budget_usd) : ""}
           onChange={handleUSD}
           inputMode="numeric"
-        />
+        /> */}
       </div>
 
       <div className="flex items-start gap-2 mt-4 text-xs text-slate-grey italic">
