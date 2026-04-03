@@ -3,7 +3,6 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Copy } from "lucide-react";
-import { useSupabase } from "@/hooks/useSupabase";
 import { Skeleton } from "@/components/ui/Skeleton";
 import DataTable, { type Column } from "@/components/admin/DataTable";
 import { Badge } from "@/components/ui/Badge";
@@ -74,52 +73,21 @@ function EmailCell({ email }: { email: string }) {
 }
 
 export default function UsersPage() {
-  const supabase = useSupabase();
   const router = useRouter();
   const [users, setUsers] = useState<UserRow[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function fetchUsers() {
-      const { data } = await supabase
-        .from("diagnostic_submissions")
-        .select("email, name, company, created_at")
-        .order("created_at", { ascending: false });
-
-      if (!data) {
-        setLoading(false);
-        return;
-      }
-
-      // Aggregate by email
-      const map = new Map<string, UserRow>();
-      for (const row of data) {
-        const existing = map.get(row.email);
-        if (existing) {
-          existing.total_submissions += 1;
-          if (row.created_at > existing.last_submission) {
-            existing.last_submission = row.created_at;
-            existing.name = row.name;
-            existing.company = row.company;
-          }
-        } else {
-          map.set(row.email, {
-            email: row.email,
-            name: row.name,
-            company: row.company ?? null,
-            total_submissions: 1,
-            last_submission: row.created_at,
-          });
-        }
-      }
-
-      setUsers(Array.from(map.values()).sort((a, b) =>
-        b.last_submission.localeCompare(a.last_submission)
-      ));
+      const res = await fetch("/api/admin/submissions?view=users", {
+        credentials: "include",
+      });
+      const result = await res.json();
+      setUsers((result.data ?? []) as UserRow[]);
       setLoading(false);
     }
     fetchUsers();
-  }, [supabase]);
+  }, []);
 
   if (loading) {
     return (

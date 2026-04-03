@@ -3,7 +3,6 @@
 import { useEffect, useState, useCallback, useRef } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { ArrowLeft, Copy, ExternalLink, Download } from "lucide-react";
-import { useSupabase } from "@/hooks/useSupabase";
 import { Button } from "@/components/ui/Button";
 import { Textarea } from "@/components/ui/Textarea";
 import { Skeleton } from "@/components/ui/Skeleton";
@@ -17,7 +16,6 @@ export default function UserDetailPage() {
   const params = useParams<{ email: string }>();
   const email = decodeURIComponent(params.email);
   const router = useRouter();
-  const supabase = useSupabase();
   const { toast } = useToast();
   const [submissions, setSubmissions] = useState<DiagnosticSubmission[]>([]);
   const [loading, setLoading] = useState(true);
@@ -27,12 +25,11 @@ export default function UserDetailPage() {
 
   useEffect(() => {
     async function fetch() {
-      const { data } = await supabase
-        .from("diagnostic_submissions")
-        .select("*")
-        .eq("email", email)
-        .order("created_at", { ascending: false });
-      const subs = (data ?? []) as DiagnosticSubmission[];
+      const res = await fetch(`/api/admin/submissions?email=${encodeURIComponent(email)}&limit=1000`, {
+        credentials: "include",
+      });
+      const result = await res.json();
+      const subs = (result.data ?? []) as DiagnosticSubmission[];
       setSubmissions(subs);
       // Use admin_notes from the most recent submission
       if (subs.length > 0 && subs[0].admin_notes) {
@@ -41,7 +38,7 @@ export default function UserDetailPage() {
       setLoading(false);
     }
     if (email) fetch();
-  }, [email, supabase]);
+  }, [email]);
 
   const handleSaveNotes = useCallback(async () => {
     if (submissions.length === 0) return;
