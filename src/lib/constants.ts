@@ -54,9 +54,7 @@ export const SCORING = {
   },
   targetUser: {
     internal: 1,
-    b2b: 2,
-    b2c: 4,
-    marketplace: 5,
+    public: 4,
     unknown: 0,
   },
   featureWeights: {
