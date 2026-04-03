@@ -67,6 +67,6 @@ export function calculateScore(data: DiagnosticFormData): DiagnosticScore {
 export function getFlags(data: DiagnosticFormData, score: DiagnosticScore) {
   return {
     timelineWarning: data.timeline === "urgent" && score.totalScore >= 15,
-    needsMultiTenant: data.target_user === "marketplace",
+    needsMultiTenant: false,
   };
 }

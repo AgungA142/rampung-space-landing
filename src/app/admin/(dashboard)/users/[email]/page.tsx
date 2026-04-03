@@ -24,7 +24,7 @@ export default function UserDetailPage() {
   const debounceRef = useRef<ReturnType<typeof setTimeout>>(undefined);
 
   useEffect(() => {
-    async function fetch() {
+    async function fetchData() {
       const res = await fetch(`/api/admin/submissions?email=${encodeURIComponent(email)}&limit=1000`, {
         credentials: "include",
       });
@@ -37,7 +37,7 @@ export default function UserDetailPage() {
       }
       setLoading(false);
     }
-    if (email) fetch();
+    if (email) fetchData();
   }, [email]);
 
   const handleSaveNotes = useCallback(async () => {
