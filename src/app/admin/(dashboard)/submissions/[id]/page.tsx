@@ -3,7 +3,6 @@
 import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { ArrowLeft } from "lucide-react";
-import { useSupabase } from "@/hooks/useSupabase";
 import { Button } from "@/components/ui/Button";
 import { Skeleton } from "@/components/ui/Skeleton";
 import SubmissionDetail from "@/components/admin/SubmissionDetail";
@@ -12,22 +11,20 @@ import type { DiagnosticSubmission } from "@/types/diagnostic";
 export default function SubmissionDetailPage() {
   const { id } = useParams<{ id: string }>();
   const router = useRouter();
-  const supabase = useSupabase();
   const [submission, setSubmission] = useState<DiagnosticSubmission | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function fetchSubmission() {
-      const { data } = await supabase
-        .from("diagnostic_submissions")
-        .select("*")
-        .eq("id", id)
-        .single();
-      setSubmission(data as DiagnosticSubmission | null);
+      const res = await fetch(`/api/admin/submissions/${id}`, {
+        credentials: "include",
+      });
+      const result = await res.json();
+      setSubmission((result.data ?? null) as DiagnosticSubmission | null);
       setLoading(false);
     }
     if (id) fetchSubmission();
-  }, [id, supabase]);
+  }, [id]);
 
   if (loading) {
     return (

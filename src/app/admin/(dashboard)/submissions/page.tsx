@@ -3,7 +3,6 @@
 import { useEffect, useState, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import { Download, AlertTriangle, Building2 } from "lucide-react";
-import { useSupabase } from "@/hooks/useSupabase";
 import { Button } from "@/components/ui/Button";
 import { Skeleton } from "@/components/ui/Skeleton";
 import DataTable, { type Column, type FilterConfig } from "@/components/admin/DataTable";
@@ -115,22 +114,21 @@ const filters: FilterConfig[] = [
 ];
 
 export default function SubmissionsPage() {
-  const supabase = useSupabase();
   const router = useRouter();
   const [data, setData] = useState<DiagnosticSubmission[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function fetchData() {
-      const { data: submissions } = await supabase
-        .from("diagnostic_submissions")
-        .select("*")
-        .order("created_at", { ascending: false });
-      setData((submissions ?? []) as DiagnosticSubmission[]);
+      const res = await fetch("/api/admin/submissions?limit=1000", {
+        credentials: "include",
+      });
+      const result = await res.json();
+      setData((result.data ?? []) as DiagnosticSubmission[]);
       setLoading(false);
     }
     fetchData();
-  }, [supabase]);
+  }, []);
 
   const handleExport = useCallback(() => {
     if (data.length === 0) return;
