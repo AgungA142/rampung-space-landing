@@ -2,17 +2,19 @@ import { NextResponse, type NextRequest } from "next/server";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { calculateScore, getFlags } from "@/components/diagnostic/scoringEngine";
 import type { DiagnosticFormData } from "@/types/diagnostic";
+import { isValidWhatsAppPhone, normalizeWhatsAppPhone } from "@/lib/whatsapp";
 
 export async function POST(request: NextRequest) {
   try {
     const body: DiagnosticFormData = await request.json();
+    const phone = normalizeWhatsAppPhone(body.phone ?? "");
 
     // Validate required fields
     if (!body.name || body.name.length < 2) {
       return NextResponse.json({ error: "Name is required (min 2 chars)" }, { status: 400 });
     }
-    if (!body.email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(body.email)) {
-      return NextResponse.json({ error: "Valid email is required" }, { status: 400 });
+    if (!phone || !isValidWhatsAppPhone(phone)) {
+      return NextResponse.json({ error: "Valid WhatsApp number is required" }, { status: 400 });
     }
     if (!body.platform) {
       return NextResponse.json({ error: "Platform is required" }, { status: 400 });
@@ -40,7 +42,7 @@ export async function POST(request: NextRequest) {
       .from("diagnostic_submissions")
       .insert({
         name: body.name,
-        email: body.email,
+        phone,
         company: body.company || null,
         budget_idr: body.budget_idr ? parseInt(body.budget_idr.replace(/\D/g, ""), 10) : null,
         budget_usd: body.budget_usd ? parseInt(body.budget_usd.replace(/\D/g, ""), 10) : null,

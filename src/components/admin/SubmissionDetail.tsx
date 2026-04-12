@@ -125,9 +125,9 @@ export default function SubmissionDetail({ submission }: SubmissionDetailProps) 
     }
   };
 
-  const copyEmail = () => {
-    navigator.clipboard.writeText(submission.email);
-    toast("info", "Email disalin");
+  const copyPhone = () => {
+    navigator.clipboard.writeText(submission.phone);
+    toast("info", "Nomor disalin");
   };
 
   return (
@@ -143,12 +143,12 @@ export default function SubmissionDetail({ submission }: SubmissionDetailProps) 
               <span className="text-white font-medium">{submission.name}</span>
             </div>
             <div className="flex justify-between items-center">
-              <span className="text-slate-grey">Email</span>
+              <span className="text-slate-grey">WhatsApp</span>
               <div className="flex items-center gap-2">
                 <span className="text-white font-[family-name:var(--font-space-mono)] text-xs">
-                  {submission.email}
+                  {submission.phone}
                 </span>
-                <button type="button" onClick={copyEmail} className="text-slate-grey hover:text-pistachio transition-colors">
+                <button type="button" onClick={copyPhone} className="text-slate-grey hover:text-pistachio transition-colors">
                   <Copy size={14} />
                 </button>
               </div>

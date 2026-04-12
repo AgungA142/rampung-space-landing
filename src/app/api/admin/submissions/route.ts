@@ -32,7 +32,7 @@ export async function GET(request: NextRequest) {
   const status = searchParams.get("status");
   const complexity = searchParams.get("complexity");
   const search = searchParams.get("search");
-  const email = searchParams.get("email");
+  const phone = searchParams.get("phone");
 
   if (view === "dashboard") {
     const weekAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString();
@@ -77,7 +77,7 @@ export async function GET(request: NextRequest) {
   if (view === "users") {
     const { data, error } = await adminDb
       .from("diagnostic_submissions")
-      .select("email, name, company, created_at")
+      .select("phone, name, company, created_at")
       .order("created_at", { ascending: false });
 
     if (error) {
@@ -86,11 +86,11 @@ export async function GET(request: NextRequest) {
 
     const map = new Map<
       string,
-      { email: string; name: string; company: string | null; total_submissions: number; last_submission: string }
+      { phone: string; name: string; company: string | null; total_submissions: number; last_submission: string }
     >();
 
     for (const row of data ?? []) {
-      const existing = map.get(row.email);
+      const existing = map.get(row.phone);
       if (existing) {
         existing.total_submissions += 1;
         if (row.created_at > existing.last_submission) {
@@ -99,8 +99,8 @@ export async function GET(request: NextRequest) {
           existing.company = row.company;
         }
       } else {
-        map.set(row.email, {
-          email: row.email,
+        map.set(row.phone, {
+          phone: row.phone,
           name: row.name,
           company: row.company ?? null,
           total_submissions: 1,
@@ -120,8 +120,8 @@ export async function GET(request: NextRequest) {
     .from("diagnostic_submissions")
     .select("*", { count: "exact" });
 
-  if (email) {
-    query = query.eq("email", email);
+  if (phone) {
+    query = query.eq("phone", phone);
   }
 
   if (status) {
@@ -136,7 +136,7 @@ export async function GET(request: NextRequest) {
 
   if (search) {
     query = query.or(
-      `name.ilike.%${search}%,email.ilike.%${search}%,company.ilike.%${search}%`
+      `name.ilike.%${search}%,phone.ilike.%${search}%,company.ilike.%${search}%`
     );
   }
 

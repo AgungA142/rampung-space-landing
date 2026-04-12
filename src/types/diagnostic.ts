@@ -10,7 +10,7 @@ export interface DiagnosticSubmission {
   id: string;
   created_at: string;
   name: string;
-  email: string;
+  phone: string;
   company?: string;
   budget_idr?: number;
   budget_usd?: number;
@@ -35,7 +35,7 @@ export interface DiagnosticSubmission {
 
 export interface DiagnosticFormData {
   name: string;
-  email: string;
+  phone: string;
   company?: string;
   budget_idr?: string;
   budget_usd?: string;
