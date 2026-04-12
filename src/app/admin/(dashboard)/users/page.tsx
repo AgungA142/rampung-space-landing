@@ -10,7 +10,7 @@ import { useToast } from "@/components/ui/Toast";
 import { timeAgo } from "@/lib/helpers";
 
 interface UserRow extends Record<string, unknown> {
-  email: string;
+  phone: string;
   name: string;
   company: string | null;
   total_submissions: number;
@@ -24,9 +24,9 @@ const columns: Column<UserRow>[] = [
     render: (row) => <span className="font-medium text-white">{row.name}</span>,
   },
   {
-    key: "email",
-    label: "Email",
-    render: (row) => <EmailCell email={row.email} />,
+    key: "phone",
+    label: "WhatsApp",
+    render: (row) => <PhoneCell phone={row.phone} />,
   },
   {
     key: "company",
@@ -54,17 +54,17 @@ const columns: Column<UserRow>[] = [
   },
 ];
 
-function EmailCell({ email }: { email: string }) {
+function PhoneCell({ phone }: { phone: string }) {
   const { toast } = useToast();
   const copy = (e: React.MouseEvent) => {
     e.stopPropagation();
-    navigator.clipboard.writeText(email);
-    toast("info", "Email disalin");
+    navigator.clipboard.writeText(phone);
+    toast("info", "Nomor disalin");
   };
 
   return (
     <div className="flex items-center gap-1.5">
-      <span className="text-slate-grey font-[family-name:var(--font-space-mono)] text-xs">{email}</span>
+      <span className="text-slate-grey font-[family-name:var(--font-space-mono)] text-xs">{phone}</span>
       <button type="button" onClick={copy} className="text-slate-grey hover:text-pistachio transition-colors">
         <Copy size={12} />
       </button>
@@ -105,10 +105,10 @@ export default function UsersPage() {
         data={users}
         isLoading={loading}
         searchable
-        searchPlaceholder="Cari nama atau email..."
-        searchKeys={["name", "email"]}
+        searchPlaceholder="Cari nama atau nomor WhatsApp..."
+        searchKeys={["name", "phone"]}
         pageSize={20}
-        onRowClick={(row) => router.push(`/admin/users/${encodeURIComponent(row.email)}`)}
+        onRowClick={(row) => router.push(`/admin/users/${encodeURIComponent(row.phone)}`)}
         emptyMessage="Belum ada users."
       />
     </div>

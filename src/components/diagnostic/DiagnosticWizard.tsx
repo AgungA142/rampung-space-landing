@@ -15,6 +15,7 @@ import StepTimeline from "./StepTimeline";
 import ProcessingScreen from "./ProcessingScreen";
 import ThankYouScreen from "./ThankYouScreen";
 import type { DiagnosticFormData } from "@/types/diagnostic";
+import { isValidWhatsAppPhone, normalizeWhatsAppPhone } from "@/lib/whatsapp";
 
 const TOTAL_STEPS = 6;
 
@@ -35,7 +36,7 @@ const slideVariants = {
 
 const initialFormData: DiagnosticFormData = {
   name: "",
-  email: "",
+  phone: "",
   company: "",
   budget_idr: "",
   budget_usd: "",
@@ -72,8 +73,10 @@ export default function DiagnosticWizard() {
         if (!formData.name || formData.name.trim().length < 2) {
           errs.name = locale === "id" ? "Nama wajib diisi (min 2 karakter)" : "Name is required (min 2 chars)";
         }
-        if (!formData.email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
-          errs.email = locale === "id" ? "Format email tidak valid" : "Invalid email format";
+        if (!formData.phone || !isValidWhatsAppPhone(formData.phone)) {
+          errs.phone = locale === "id"
+            ? "Nomor WhatsApp harus 8-15 digit, contoh 6281234567890"
+            : "WhatsApp number must be 8-15 digits, e.g. 6281234567890";
         }
         break;
       }
@@ -130,17 +133,22 @@ export default function DiagnosticWizard() {
   const handleSubmit = async () => {
     setIsSubmitting(true);
     try {
+      const payload = {
+        ...formData,
+        phone: normalizeWhatsAppPhone(formData.phone),
+      };
+
       const response = await fetch("/api/diagnostic", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(payload),
       });
 
       if (!response.ok) throw new Error("Submission failed");
 
       localStorage.setItem(
         "lastDiagnostic",
-        JSON.stringify({ ...formData, submittedAt: new Date().toISOString() })
+        JSON.stringify({ ...payload, submittedAt: new Date().toISOString() })
       );
 
       setPhase("processing");
@@ -170,7 +178,7 @@ export default function DiagnosticWizard() {
   if (phase === "thankYou") {
     return (
       <div className="bg-navy-light rounded-2xl border border-white/5 p-6 md:p-8 max-w-[720px] mx-auto">
-        <ThankYouScreen email={formData.email} />
+        <ThankYouScreen phone={normalizeWhatsAppPhone(formData.phone)} />
       </div>
     );
   }

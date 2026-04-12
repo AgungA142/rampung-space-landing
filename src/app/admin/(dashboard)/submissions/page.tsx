@@ -24,10 +24,10 @@ const columns: Column<DiagnosticSubmission & Record<string, unknown>>[] = [
     ),
   },
   {
-    key: "email",
-    label: "Email",
+    key: "phone",
+    label: "WhatsApp",
     width: "180px",
-    render: (row) => <span className="text-slate-grey">{row.email}</span>,
+    render: (row) => <span className="text-slate-grey">{row.phone}</span>,
   },
   {
     key: "platform",
@@ -132,9 +132,9 @@ export default function SubmissionsPage() {
 
   const handleExport = useCallback(() => {
     if (data.length === 0) return;
-    const exportData = data.map((s) => ({
+      const exportData = data.map((s) => ({
       name: s.name,
-      email: s.email,
+      phone: s.phone,
       company: s.company ?? "",
       platform: s.platform,
       target_user: s.target_user,
@@ -164,8 +164,8 @@ export default function SubmissionsPage() {
         data={data as (DiagnosticSubmission & Record<string, unknown>)[]}
         isLoading={loading}
         searchable
-        searchPlaceholder="Cari nama, email, atau perusahaan..."
-        searchKeys={["name", "email", "company"]}
+        searchPlaceholder="Cari nama, nomor WhatsApp, atau perusahaan..."
+        searchKeys={["name", "phone", "company"]}
         filters={filters}
         defaultSort={{ column: "created_at", direction: "desc" }}
         pageSize={20}

@@ -1,16 +1,16 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { CheckCircle, Mail, Home } from "lucide-react";
+import { CheckCircle, MessageCircle, Home } from "lucide-react";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
 import { Braco } from "@/components/braco/Braco";
 import { Button } from "@/components/ui/Button";
 
 interface ThankYouScreenProps {
-  email: string;
+  phone: string;
 }
 
-export default function ThankYouScreen({ email }: ThankYouScreenProps) {
+export default function ThankYouScreen({ phone }: ThankYouScreenProps) {
   const { locale } = useLanguage();
 
   const scrollToTop = () => {
@@ -62,11 +62,11 @@ export default function ThankYouScreen({ email }: ThankYouScreenProps) {
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.6 }}
       >
-        <Mail size={18} className="text-pistachio flex-shrink-0 mt-0.5" />
+        <MessageCircle size={18} className="text-pistachio flex-shrink-0 mt-0.5" />
         <p className="text-slate-grey text-sm text-left">
           {locale === "id"
-            ? <>Pastikan email <span className="font-[family-name:var(--font-space-mono)] text-pistachio">{email}</span> aktif dan cek folder spam jika belum menerima balasan.</>
-            : <>Make sure <span className="font-[family-name:var(--font-space-mono)] text-pistachio">{email}</span> is active and check your spam folder if you haven&apos;t received a reply.</>}
+            ? <>Pastikan nomor WhatsApp <span className="font-[family-name:var(--font-space-mono)] text-pistachio">{phone}</span> aktif agar tim kami bisa menghubungi Anda.</>
+            : <>Make sure your WhatsApp number <span className="font-[family-name:var(--font-space-mono)] text-pistachio">{phone}</span> is active so our team can reach you.</>}
         </p>
       </motion.div>
 

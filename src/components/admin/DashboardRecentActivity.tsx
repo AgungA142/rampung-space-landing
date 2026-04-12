@@ -32,7 +32,7 @@ export default function DashboardRecentActivity({ submissions }: DashboardRecent
           <thead>
             <tr className="bg-navy text-slate-grey text-xs uppercase tracking-wider">
               <th className="px-4 py-2.5 text-left font-medium">Nama</th>
-              <th className="px-4 py-2.5 text-left font-medium">Email</th>
+              <th className="px-4 py-2.5 text-left font-medium">WhatsApp</th>
               <th className="px-4 py-2.5 text-left font-medium">Platform</th>
               <th className="px-4 py-2.5 text-left font-medium">Complexity</th>
               <th className="px-4 py-2.5 text-left font-medium">Status</th>
@@ -47,7 +47,7 @@ export default function DashboardRecentActivity({ submissions }: DashboardRecent
                 className="border-b border-white/5 text-sm text-white cursor-pointer hover:bg-navy/50 transition-colors"
               >
                 <td className="px-4 py-3 font-medium">{s.name}</td>
-                <td className="px-4 py-3 text-slate-grey">{s.email}</td>
+                <td className="px-4 py-3 text-slate-grey">{s.phone}</td>
                 <td className="px-4 py-3 capitalize">{s.platform.replace("_", " ")}</td>
                 <td className="px-4 py-3"><ComplexityBadge level={s.complexity_level} /></td>
                 <td className="px-4 py-3"><StatusBadge status={s.status} /></td>
