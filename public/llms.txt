@@ -1,0 +1,33 @@
+# rampung.space
+
+> Software house Indonesia untuk MVP development, web application development, mobile app Android, dan konsultasi teknis.
+
+rampung.space membantu founder, UMKM, dan tim bisnis mengubah ide software menjadi produk siap rilis. Fokus utama layanan adalah MVP development, web application development, mobile app Android, dan tech consultation.
+
+## Layanan utama
+
+- MVP Development: membangun minimum viable product untuk validasi ide bisnis dengan produk nyata.
+- Web Application Development: membangun aplikasi web modern, responsif, dan scalable.
+- Mobile App Development: membangun aplikasi mobile Android yang performant dan mudah digunakan.
+- Tech Consultation: membantu menentukan scope, stack teknologi, arsitektur, timeline, dan prioritas pengembangan.
+
+## Cara kerja
+
+1. Space: memahami ide, masalah, dan kebutuhan bisnis.
+2. Diagnosa: menganalisis kebutuhan teknis, scope proyek, dan timeline realistis.
+3. Build: membangun produk dengan update mingguan yang transparan.
+4. Rampung: menyelesaikan produk sampai teruji dan siap rilis.
+
+## Target pengguna
+
+- Founder atau startup yang ingin memvalidasi ide produk digital.
+- UMKM yang ingin go-digital.
+- Tim bisnis yang butuh web app, mobile app, dashboard, automasi, atau sistem internal.
+- Pemilik ide yang belum punya tim teknis.
+
+## Informasi kontak
+
+- Website: https://rampung.space
+- Email: rampung.space@gmail.com
+- Instagram: https://www.instagram.com/rampung_space
+
