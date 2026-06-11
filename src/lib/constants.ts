@@ -31,22 +31,6 @@ export const NAVIGATION = {
 } as const;
 
 export const SCORING = {
-  budget: {
-    idr: [
-      { max: 10_000_000, score: 1 },
-      { max: 50_000_000, score: 2 },
-      { max: 150_000_000, score: 3 },
-      { max: 500_000_000, score: 4 },
-      { max: Infinity, score: 5 },
-    ],
-    usd: [
-      { max: 700, score: 1 },
-      { max: 3_500, score: 2 },
-      { max: 10_000, score: 3 },
-      { max: 35_000, score: 4 },
-      { max: Infinity, score: 5 },
-    ],
-  },
   platform: {
     web_app: 2,
     mobile_android: 3,

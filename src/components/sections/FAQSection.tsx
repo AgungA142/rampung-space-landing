@@ -74,6 +74,7 @@ export default function FAQSection() {
 
   return (
     <motion.section
+      id="faq"
       className="py-20 md:py-28 overflow-hidden"
       variants={containerVariants}
       initial="hidden"

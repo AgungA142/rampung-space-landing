@@ -13,11 +13,6 @@ interface StepFeaturesProps {
   onChange: (field: keyof DiagnosticFormData, value: string[]) => void;
 }
 
-const suggestions = [
-  "dashboard",
-  "android",
-];
-
 export default function StepFeatures({ data, errors, onChange }: StepFeaturesProps) {
   const { locale } = useLanguage();
   const [draft, setDraft] = useState("");
@@ -79,7 +74,7 @@ export default function StepFeatures({ data, errors, onChange }: StepFeaturesPro
             value={draft}
             onChange={(event) => setDraft(event.target.value)}
             onKeyDown={handleKeyDown}
-            placeholder={locale === "id" ? "Contoh: web, android" : "Example: web, android"}
+            placeholder={locale === "id" ? "Contoh: login, payment" : "Example: login, payment"}
             className="h-11 flex-1 rounded-xl border border-white/10 bg-navy-light px-4 text-sm text-white outline-none transition focus:border-pistachio"
           />
           <Button
@@ -120,18 +115,6 @@ export default function StepFeatures({ data, errors, onChange }: StepFeaturesPro
           </div>
         )}
 
-        <div className="mt-4 flex flex-wrap gap-2">
-          {suggestions.map((suggestion) => (
-            <button
-              key={suggestion}
-              type="button"
-              onClick={() => addFeature(suggestion)}
-              className="rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-xs text-slate-grey transition hover:border-pistachio/50 hover:text-white"
-            >
-              {suggestion}
-            </button>
-          ))}
-        </div>
       </div>
     </div>
   );

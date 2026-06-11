@@ -76,7 +76,6 @@
     "subheading": "Diagnosa awal kompleksitas proyek Anda",
     "steps": {
       "contact": "Info Kontak",
-      "budget": "Budget",
       "platform": "Platform",
       "targetUser": "Target User",
       "features": "Fitur",
@@ -86,8 +85,6 @@
       "name": "Nama",
       "email": "Email",
       "company": "Nama Perusahaan/Proyek",
-      "budgetIdr": "Budget (Rupiah)",
-      "budgetUsd": "Budget (Dollar)",
       "next": "Selanjutnya",
       "back": "Kembali",
       "submit": "Kirim Diagnosa"

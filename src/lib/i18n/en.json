@@ -76,7 +76,6 @@
     "subheading": "Initial complexity diagnosis for your project",
     "steps": {
       "contact": "Contact Info",
-      "budget": "Budget",
       "platform": "Platform",
       "targetUser": "Target User",
       "features": "Features",
@@ -86,8 +85,6 @@
       "name": "Name",
       "email": "Email",
       "company": "Company/Project Name",
-      "budgetIdr": "Budget (IDR)",
-      "budgetUsd": "Budget (USD)",
       "next": "Next",
       "back": "Back",
       "submit": "Submit Diagnosis"

@@ -19,9 +19,6 @@ export async function POST(request: NextRequest) {
     if (!body.platform) {
       return NextResponse.json({ error: "Platform is required" }, { status: 400 });
     }
-    if (body.platform === "other" && !body.platform_other) {
-      return NextResponse.json({ error: "Please specify your platform" }, { status: 400 });
-    }
     if (!body.target_user) {
       return NextResponse.json({ error: "Target user is required" }, { status: 400 });
     }
@@ -44,14 +41,11 @@ export async function POST(request: NextRequest) {
         name: body.name,
         phone,
         company: body.company || null,
-        budget_idr: body.budget_idr ? parseInt(body.budget_idr.replace(/\D/g, ""), 10) : null,
-        budget_usd: body.budget_usd ? parseInt(body.budget_usd.replace(/\D/g, ""), 10) : null,
         platform: body.platform,
         platform_other: body.platform_other || null,
         target_user: body.target_user,
         features: body.features,
         timeline: body.timeline,
-        score_budget: score.budget,
         score_platform: score.platform,
         score_target_user: score.targetUser,
         score_features: score.features,

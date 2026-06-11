@@ -7,7 +7,6 @@ import { useLanguage } from "@/lib/i18n/LanguageContext";
 import { Button } from "@/components/ui/Button";
 import { ProgressBar } from "@/components/ui/ProgressBar";
 import StepContact from "./StepContact";
-import StepBudget from "./StepBudget";
 import StepPlatform from "./StepPlatform";
 import StepTargetUser from "./StepTargetUser";
 import StepFeatures from "./StepFeatures";
@@ -17,7 +16,7 @@ import ThankYouScreen from "./ThankYouScreen";
 import type { DiagnosticFormData } from "@/types/diagnostic";
 import { isValidWhatsAppPhone, normalizeWhatsAppPhone } from "@/lib/whatsapp";
 
-const TOTAL_STEPS = 6;
+const TOTAL_STEPS = 5;
 
 const slideVariants = {
   enter: (direction: number) => ({
@@ -38,8 +37,6 @@ const initialFormData: DiagnosticFormData = {
   name: "",
   phone: "",
   company: "",
-  budget_idr: "",
-  budget_usd: "",
   platform: "" as DiagnosticFormData["platform"],
   platform_other: "",
   target_user: "" as DiagnosticFormData["target_user"],
@@ -80,28 +77,25 @@ export default function DiagnosticWizard() {
         }
         break;
       }
-      case 2: {
+      case 1: {
         if (!formData.platform) {
           errs.platform = locale === "id" ? "Pilih platform" : "Select a platform";
         }
-        if (formData.platform === "other" && !formData.platform_other?.trim()) {
-          errs.platform_other = locale === "id" ? "Tulis platform yang diinginkan" : "Please specify your platform";
-        }
         break;
       }
-      case 3: {
+      case 2: {
         if (!formData.target_user) {
           errs.target_user = locale === "id" ? "Pilih target pengguna" : "Select target user";
         }
         break;
       }
-      case 4: {
+      case 3: {
         if (!formData.features || formData.features.length === 0) {
           errs.features = locale === "id" ? "Pilih minimal 1 fitur" : "Select at least 1 feature";
         }
         break;
       }
-      case 5: {
+      case 4: {
         if (!formData.timeline) {
           errs.timeline = locale === "id" ? "Pilih timeline" : "Select a timeline";
         }
@@ -186,8 +180,8 @@ export default function DiagnosticWizard() {
   const isLastStep = currentStep === TOTAL_STEPS - 1;
 
   const stepLabels = locale === "id"
-    ? ["Info Kontak", "Budget", "Platform", "Target User", "Fitur", "Timeline"]
-    : ["Contact Info", "Budget", "Platform", "Target User", "Features", "Timeline"];
+    ? ["Info Kontak", "Platform", "Target User", "Fitur", "Timeline"]
+    : ["Contact Info", "Platform", "Target User", "Features", "Timeline"];
 
   return (
     <div className="bg-navy-light rounded-2xl border border-white/5 p-6 md:p-8 max-w-[720px] mx-auto shadow-lg">
@@ -222,18 +216,15 @@ export default function DiagnosticWizard() {
               <StepContact data={formData} errors={errors} onChange={updateField} />
             )}
             {currentStep === 1 && (
-              <StepBudget data={formData} onChange={updateField} />
-            )}
-            {currentStep === 2 && (
               <StepPlatform data={formData} errors={errors} onChange={updateField} />
             )}
-            {currentStep === 3 && (
+            {currentStep === 2 && (
               <StepTargetUser data={formData} errors={errors} onChange={updateField} />
             )}
-            {currentStep === 4 && (
+            {currentStep === 3 && (
               <StepFeatures data={formData} errors={errors} onChange={updateField as (field: keyof DiagnosticFormData, value: string[]) => void} />
             )}
-            {currentStep === 5 && (
+            {currentStep === 4 && (
               <StepTimeline data={formData} errors={errors} onChange={updateField} />
             )}
           </motion.div>

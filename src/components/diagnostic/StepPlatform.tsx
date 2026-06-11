@@ -1,9 +1,7 @@
 "use client";
 
-import { motion, AnimatePresence } from "framer-motion";
 import { Globe, Smartphone, Plus, Check } from "lucide-react";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
-import { Input } from "@/components/ui/Input";
 import { Braco } from "@/components/braco/Braco";
 import type { DiagnosticFormData, Platform } from "@/types/diagnostic";
 
@@ -103,28 +101,6 @@ export default function StepPlatform({ data, errors, onChange }: StepPlatformPro
         </div>
       </button>
 
-      <AnimatePresence>
-        {data.platform === "other" && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.2 }}
-            className="mt-3"
-          >
-            <Input
-              placeholder={
-                locale === "id"
-                  ? "Tulis platform yang diinginkan..."
-                  : "Specify your platform..."
-              }
-              value={data.platform_other || ""}
-              onChange={(e) => onChange("platform_other", e.target.value)}
-              error={errors.platform_other}
-            />
-          </motion.div>
-        )}
-      </AnimatePresence>
     </div>
   );
 }

@@ -4,7 +4,6 @@ import { ComplexityBadge } from "./StatusBadge";
 import type { ComplexityLevel } from "@/types/diagnostic";
 
 interface ScoreBreakdownProps {
-  scoreBudget: number;
   scorePlatform: number;
   scoreTargetUser: number;
   scoreFeatures: number;
@@ -14,7 +13,6 @@ interface ScoreBreakdownProps {
 }
 
 const categories = [
-  { key: "budget", label: "Budget", max: 5 },
   { key: "platform", label: "Platform", max: 5 },
   { key: "targetUser", label: "Target User", max: 5 },
   { key: "features", label: "Features", max: 5 },
@@ -42,7 +40,6 @@ function ScoreBar({ value, max }: { value: number; max: number }) {
 }
 
 export default function ScoreBreakdown({
-  scoreBudget,
   scorePlatform,
   scoreTargetUser,
   scoreFeatures,
@@ -51,7 +48,6 @@ export default function ScoreBreakdown({
   complexityLevel,
 }: ScoreBreakdownProps) {
   const scores: Record<string, number> = {
-    budget: scoreBudget,
     platform: scorePlatform,
     targetUser: scoreTargetUser,
     features: scoreFeatures,
@@ -68,7 +64,7 @@ export default function ScoreBreakdown({
       ))}
       <div className="border-t border-white/10 pt-3 mt-3 flex items-center justify-between">
         <span className="text-sm font-bold text-white">
-          Total: {totalScore}/25
+          Total: {totalScore}/20
         </span>
         <ComplexityBadge level={complexityLevel} />
       </div>

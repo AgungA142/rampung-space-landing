@@ -12,14 +12,11 @@ export interface DiagnosticSubmission {
   name: string;
   phone: string;
   company?: string;
-  budget_idr?: number;
-  budget_usd?: number;
   platform: Platform;
   platform_other?: string;
   target_user: TargetUser;
   features: Feature[];
   timeline: Timeline;
-  score_budget: number;
   score_platform: number;
   score_target_user: number;
   score_features: number;
@@ -37,8 +34,6 @@ export interface DiagnosticFormData {
   name: string;
   phone: string;
   company?: string;
-  budget_idr?: string;
-  budget_usd?: string;
   platform: Platform;
   platform_other?: string;
   target_user: TargetUser;
@@ -47,7 +42,6 @@ export interface DiagnosticFormData {
 }
 
 export interface DiagnosticScore {
-  budget: number;
   platform: number;
   targetUser: number;
   features: number;
