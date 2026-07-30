@@ -3,7 +3,6 @@
 import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { ArrowLeft } from "lucide-react";
-import { useSupabase } from "@/hooks/useSupabase";
 import { Button } from "@/components/ui/Button";
 import { Skeleton } from "@/components/ui/Skeleton";
 import PortfolioForm from "@/components/admin/PortfolioForm";
@@ -12,22 +11,22 @@ import type { Portfolio } from "@/types/portfolio";
 export default function EditPortfolioPage() {
   const { id } = useParams<{ id: string }>();
   const router = useRouter();
-  const supabase = useSupabase();
   const [portfolio, setPortfolio] = useState<Portfolio | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    async function fetch() {
-      const { data } = await supabase
-        .from("portfolios")
-        .select("*")
-        .eq("id", id)
-        .single();
-      setPortfolio(data as Portfolio | null);
+    async function loadPortfolio() {
+      const res = await fetch(`/api/admin/portfolio/${id}`);
+      if (res.ok) {
+        const { data } = await res.json();
+        setPortfolio(data as Portfolio | null);
+      } else {
+        setPortfolio(null);
+      }
       setLoading(false);
     }
-    if (id) fetch();
-  }, [id, supabase]);
+    if (id) loadPortfolio();
+  }, [id]);
 
   if (loading) {
     return (
