@@ -3,6 +3,7 @@ import { createAdminClient } from "@/lib/supabase/admin";
 import { calculateScore, getFlags } from "@/components/diagnostic/scoringEngine";
 import type { DiagnosticFormData } from "@/types/diagnostic";
 import { isValidWhatsAppPhone, normalizeWhatsAppPhone } from "@/lib/whatsapp";
+import { notifyDiagnosticSubmission } from "@/lib/discord";
 
 export async function POST(request: NextRequest) {
   try {
@@ -62,6 +63,12 @@ export async function POST(request: NextRequest) {
     if (error) {
       console.error("Supabase error:", error);
       return NextResponse.json({ error: "Failed to save submission" }, { status: 500 });
+    }
+
+    try {
+      await notifyDiagnosticSubmission(data);
+    } catch (discordError) {
+      console.error("Discord notification error:", discordError);
     }
 
     return NextResponse.json({ success: true, id: data.id });

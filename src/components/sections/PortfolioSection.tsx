@@ -20,39 +20,28 @@ const itemVariants = {
 
 /* TODO: Remove placeholders when real data available */
 const placeholderPortfolios = [
-  {
-    id: "pratis",
-    title: "Pratis: Praktis Tamu Informasi Sistem",
-    titleEn: "Pratis: Smart Wedding & Event Management",
-    challenge: "Calon pengantin kesulitan mengelola undangan, RSVP, dan check-in tamu secara manual. Proses tradisional memakan waktu, biaya mahal, dan rawan kesalahan.",
-    challengeEn: "Couples struggle to manage invitations, RSVPs, and guest check-ins manually. Traditional processes are time-consuming, costly, and error-prone.",
-    solution: "Platform all-in-one untuk undangan digital estetis, manajemen tamu real-time, dan validasi kehadiran dengan QR Code. Model Pay-per-Event memudahkan monetisasi.",
-    solutionEn: "All-in-one platform for aesthetic digital invitations, real-time guest management, and QR Code check-in validation. Pay-per-Event model enables clear monetization.",
-    tags: ["Web App", "SAAS"],
-    url: "https://pratis.rampung.space/",
-  },
-  {
-    id: "rakit",
-    title: "Rakit: Rapi Kontrol Inventori Tertata",
-    titleEn: "Rakit: Smart Inventory & Order Tracking",
-    challenge: "Bisnis kesulitan melacak inventory dan status pesanan secara real-time, menyebabkan keterlambatan dan ketidakpuasan pelanggan.",
-    challengeEn: "Businesses struggle to track inventory and order status in real-time, causing delays and customer dissatisfaction.",
-    solution: "Sistem terintegrasi untuk manajemen inventory, tracking pesanan end-to-end, dan notifikasi otomatis ke pelanggan.",
-    solutionEn: "Integrated system for inventory management, end-to-end order tracking, and automated customer notifications.",
-    tags: ["Mobile App", "Inventory"],
-    url: "https://rakit.rampung.space/",
-  },
-  {
-    id: "catut",
-    title: "Catut: Catatan Uang",
-    titleEn: "Catut: Financial Management",
-    challenge: "Tim dan UMKM kesulitan mencatat keuangan secara konsisten dan melacak hutang piutang antar anggota.",
-    challengeEn: "Teams and SMEs struggle to consistently track finances and manage debts between members.",
-    solution: "Telegram Bot dengan NLP untuk catat transaksi natural, OCR untuk scan nota, fitur histori, saldo, dan manajemen hutang tim.",
-    solutionEn: "Telegram Bot with NLP for natural transaction recording, OCR for receipt scanning, history feature, balance check, and team debt management.",
+ {
+    id: "sarekatbot",
+    title: "Sarekatbot: Kelola Keuangan Digital",
+    titleEn: "Sarekatbot: Digital Financial Management",
+    challenge: "Banyak orang malas mencatat keuangan karena terlalu banyak mengunduh aplikasi baru yang jarang dibuka, padahal pencatatan seharusnya menyatu dengan aplikasi komunikasi sehari-hari.",
+    challengeEn: "Many people neglect financial tracking due to app fatigue from downloading single-purpose apps, whereas financial logging should seamlessly integrate into daily communication platforms.",
+    solution: "SarekatBot hadir dengan filosofi 'Sangkan Reujeung Katata' (Supaya Bersama-sama Menjadi Tertata), sebuah Telegram Bot berbasis AI dengan NLP untuk mencatat transaksi lewat bahasa natural, OCR untuk scan nota, serta fitur histori saldo otomatis.",
+    solutionEn: "Driven by the 'Sangkan Reujeung Katata' philosophy (To order and organize together), SarekatBot is an AI-powered Telegram Bot utilizing NLP for natural language transaction logging, OCR for receipt scanning, and automated balance tracking.",
     tags: ["Telegram Bot", "AI", "Fintech"],
     url: "https://t.me/SarekatBot",
   },
+  {
+    "id": "VSNotes",
+    "title": "VSNotes: Video auto Summary Notes",
+    "titleEn": "VSNotes: Video auto Summary Notes",
+    "challenge": "Aktivitas mencatat secara manual selagi menonton video edukasi atau mendengarkan podcast sering kali memecah konsentrasi, sehingga esensi dan konteks menyeluruh dari materi tersebut gagal dipahami dengan optimal.",
+    "challengeEn": "Manually taking notes while watching instructional videos or listening to podcasts often divides attention, preventing users from fully absorbing the comprehensive content and context.",
+    "solution": "VSNotes memberikan solusi otomatisasi catatan dari berbagai platform video. Aplikasi ini menangkap dan merekam output audio device dari media yang sedang diputar, kemudian menggunakan AI untuk menyusun rangkuman komprehensif secara otomatis.",
+    "solutionEn": "VSNotes provides an automated solution by capturing and recording audio directly from the active playback device across various platforms, utilizing AI to instantly generate accurate notes and summaries.",
+    "tags": ["Desktop App", "AI", "Educational"],
+    "url": "https://vsnotes.space/"
+  }
 ];
 
 export default function PortfolioSection() {
@@ -124,7 +113,7 @@ export default function PortfolioSection() {
           {/* <div className="aspect-video bg-linear-to-br from-pistachio/10 to-pistachio-deep/10 rounded-t-2xl flex items-center justify-center overflow-hidden">
             <img src={project.imageUrl} alt={project.title} className="w-full h-full object-cover" />
           </div> */}
-          <div className="aspect-video bg-gradient-to-br from-pistachio/10 to-pistachio-deep/10 rounded-t-2xl flex items-center justify-center">
+          <div className="aspect-video bg-linear-to-br from-pistachio/10 to-pistachio-deep/10 rounded-t-2xl flex items-center justify-center">
             <FolderOpen size={40} className="text-pistachio/30" />
           </div>
 
@@ -206,7 +195,7 @@ export default function PortfolioSection() {
       <div className="max-w-7xl mx-auto px-4 md:px-6">
         <motion.h2
           variants={itemVariants}
-          className="font-[family-name:var(--font-sora)] text-3xl md:text-4xl font-bold text-white text-center mb-12 md:mb-16"
+          className="font-sora text-3xl md:text-4xl font-bold text-white text-center mb-12 md:mb-16"
         >
           {t.portfolio.heading}
         </motion.h2>
