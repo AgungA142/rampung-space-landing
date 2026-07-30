@@ -3,7 +3,6 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Copy } from "lucide-react";
-import { useSupabase } from "@/hooks/useSupabase";
 import { Skeleton } from "@/components/ui/Skeleton";
 import DataTable, { type Column } from "@/components/admin/DataTable";
 import { Badge } from "@/components/ui/Badge";
@@ -11,7 +10,7 @@ import { useToast } from "@/components/ui/Toast";
 import { timeAgo } from "@/lib/helpers";
 
 interface UserRow extends Record<string, unknown> {
-  email: string;
+  phone: string;
   name: string;
   company: string | null;
   total_submissions: number;
@@ -25,9 +24,9 @@ const columns: Column<UserRow>[] = [
     render: (row) => <span className="font-medium text-white">{row.name}</span>,
   },
   {
-    key: "email",
-    label: "Email",
-    render: (row) => <EmailCell email={row.email} />,
+    key: "phone",
+    label: "WhatsApp",
+    render: (row) => <PhoneCell phone={row.phone} />,
   },
   {
     key: "company",
@@ -55,17 +54,17 @@ const columns: Column<UserRow>[] = [
   },
 ];
 
-function EmailCell({ email }: { email: string }) {
+function PhoneCell({ phone }: { phone: string }) {
   const { toast } = useToast();
   const copy = (e: React.MouseEvent) => {
     e.stopPropagation();
-    navigator.clipboard.writeText(email);
-    toast("info", "Email disalin");
+    navigator.clipboard.writeText(phone);
+    toast("info", "Nomor disalin");
   };
 
   return (
     <div className="flex items-center gap-1.5">
-      <span className="text-slate-grey font-[family-name:var(--font-space-mono)] text-xs">{email}</span>
+      <span className="text-slate-grey font-[family-name:var(--font-space-mono)] text-xs">{phone}</span>
       <button type="button" onClick={copy} className="text-slate-grey hover:text-pistachio transition-colors">
         <Copy size={12} />
       </button>
@@ -74,52 +73,21 @@ function EmailCell({ email }: { email: string }) {
 }
 
 export default function UsersPage() {
-  const supabase = useSupabase();
   const router = useRouter();
   const [users, setUsers] = useState<UserRow[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function fetchUsers() {
-      const { data } = await supabase
-        .from("diagnostic_submissions")
-        .select("email, name, company, created_at")
-        .order("created_at", { ascending: false });
-
-      if (!data) {
-        setLoading(false);
-        return;
-      }
-
-      // Aggregate by email
-      const map = new Map<string, UserRow>();
-      for (const row of data) {
-        const existing = map.get(row.email);
-        if (existing) {
-          existing.total_submissions += 1;
-          if (row.created_at > existing.last_submission) {
-            existing.last_submission = row.created_at;
-            existing.name = row.name;
-            existing.company = row.company;
-          }
-        } else {
-          map.set(row.email, {
-            email: row.email,
-            name: row.name,
-            company: row.company ?? null,
-            total_submissions: 1,
-            last_submission: row.created_at,
-          });
-        }
-      }
-
-      setUsers(Array.from(map.values()).sort((a, b) =>
-        b.last_submission.localeCompare(a.last_submission)
-      ));
+      const res = await fetch("/api/admin/submissions?view=users", {
+        credentials: "include",
+      });
+      const result = await res.json();
+      setUsers((result.data ?? []) as UserRow[]);
       setLoading(false);
     }
     fetchUsers();
-  }, [supabase]);
+  }, []);
 
   if (loading) {
     return (
@@ -137,10 +105,10 @@ export default function UsersPage() {
         data={users}
         isLoading={loading}
         searchable
-        searchPlaceholder="Cari nama atau email..."
-        searchKeys={["name", "email"]}
+        searchPlaceholder="Cari nama atau nomor WhatsApp..."
+        searchKeys={["name", "phone"]}
         pageSize={20}
-        onRowClick={(row) => router.push(`/admin/users/${encodeURIComponent(row.email)}`)}
+        onRowClick={(row) => router.push(`/admin/users/${encodeURIComponent(row.phone)}`)}
         emptyMessage="Belum ada users."
       />
     </div>

@@ -3,7 +3,6 @@
 import { useEffect, useState, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import { Download, AlertTriangle, Building2 } from "lucide-react";
-import { useSupabase } from "@/hooks/useSupabase";
 import { Button } from "@/components/ui/Button";
 import { Skeleton } from "@/components/ui/Skeleton";
 import DataTable, { type Column, type FilterConfig } from "@/components/admin/DataTable";
@@ -25,10 +24,10 @@ const columns: Column<DiagnosticSubmission & Record<string, unknown>>[] = [
     ),
   },
   {
-    key: "email",
-    label: "Email",
+    key: "phone",
+    label: "WhatsApp",
     width: "180px",
-    render: (row) => <span className="text-slate-grey">{row.email}</span>,
+    render: (row) => <span className="text-slate-grey">{row.phone}</span>,
   },
   {
     key: "platform",
@@ -115,28 +114,27 @@ const filters: FilterConfig[] = [
 ];
 
 export default function SubmissionsPage() {
-  const supabase = useSupabase();
   const router = useRouter();
   const [data, setData] = useState<DiagnosticSubmission[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function fetchData() {
-      const { data: submissions } = await supabase
-        .from("diagnostic_submissions")
-        .select("*")
-        .order("created_at", { ascending: false });
-      setData((submissions ?? []) as DiagnosticSubmission[]);
+      const res = await fetch("/api/admin/submissions?limit=1000", {
+        credentials: "include",
+      });
+      const result = await res.json();
+      setData((result.data ?? []) as DiagnosticSubmission[]);
       setLoading(false);
     }
     fetchData();
-  }, [supabase]);
+  }, []);
 
   const handleExport = useCallback(() => {
     if (data.length === 0) return;
-    const exportData = data.map((s) => ({
+      const exportData = data.map((s) => ({
       name: s.name,
-      email: s.email,
+      phone: s.phone,
       company: s.company ?? "",
       platform: s.platform,
       target_user: s.target_user,
@@ -166,8 +164,8 @@ export default function SubmissionsPage() {
         data={data as (DiagnosticSubmission & Record<string, unknown>)[]}
         isLoading={loading}
         searchable
-        searchPlaceholder="Cari nama, email, atau perusahaan..."
-        searchKeys={["name", "email", "company"]}
+        searchPlaceholder="Cari nama, nomor WhatsApp, atau perusahaan..."
+        searchKeys={["name", "phone", "company"]}
         filters={filters}
         defaultSort={{ column: "created_at", direction: "desc" }}
         pageSize={20}

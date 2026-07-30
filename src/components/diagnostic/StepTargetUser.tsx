@@ -20,32 +20,18 @@ export default function StepTargetUser({ data, errors, onChange }: StepTargetUse
       icon: Building2,
       label: "Internal",
       desc: locale === "id"
-        ? "Tim/perusahaan sendiri, < 50 pengguna"
-        : "Your own team/company, < 50 users",
+        ? "Tim/perusahaan sendiri"
+        : "Your own team/company",
     },
     {
-      value: "b2b",
-      icon: Handshake,
-      label: "B2B",
-      desc: locale === "id"
-        ? "Bisnis ke bisnis, ratusan pengguna"
-        : "Business to business, hundreds of users",
-    },
-    {
-      value: "b2c",
-      icon: Users,
-      label: "B2C",
-      desc: locale === "id"
-        ? "Konsumen umum, ribuan-jutaan pengguna"
-        : "General consumers, thousands-millions of users",
-    },
-    {
-      value: "marketplace",
+      value: "public",
       icon: Store,
-      label: "Marketplace",
+      label: locale === "id"
+        ? "Publik"
+        : "Public",
       desc: locale === "id"
-        ? "Platform multi-sisi (penjual + pembeli)"
-        : "Multi-sided platform (sellers + buyers)",
+        ? "Digunakan oleh publik"
+        : "Use by public",
     },
   ];
 

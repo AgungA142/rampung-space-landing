@@ -91,13 +91,13 @@ export default function HeroSection() {
               >
                 {t.hero.ctaPrimary}
               </Button>
-              <Button
+              {/* <Button
                 variant="secondary"
                 size="lg"
                 onClick={() => scrollTo("#portfolio")}
               >
                 {t.hero.ctaSecondary}
-              </Button>
+              </Button> */}
             </motion.div>
           </div>
 

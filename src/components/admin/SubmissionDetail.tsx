@@ -10,8 +10,7 @@ import { Modal } from "@/components/ui/Modal";
 import { Badge } from "@/components/ui/Badge";
 import { useToast } from "@/components/ui/Toast";
 import ScoreBreakdown from "./ScoreBreakdown";
-import { StatusBadge, ComplexityBadge } from "./StatusBadge";
-import { formatCurrency } from "@/lib/helpers";
+import { StatusBadge } from "./StatusBadge";
 import type { DiagnosticSubmission, SubmissionStatus } from "@/types/diagnostic";
 
 interface SubmissionDetailProps {
@@ -125,9 +124,9 @@ export default function SubmissionDetail({ submission }: SubmissionDetailProps) 
     }
   };
 
-  const copyEmail = () => {
-    navigator.clipboard.writeText(submission.email);
-    toast("info", "Email disalin");
+  const copyPhone = () => {
+    navigator.clipboard.writeText(submission.phone);
+    toast("info", "Nomor disalin");
   };
 
   return (
@@ -143,12 +142,12 @@ export default function SubmissionDetail({ submission }: SubmissionDetailProps) 
               <span className="text-white font-medium">{submission.name}</span>
             </div>
             <div className="flex justify-between items-center">
-              <span className="text-slate-grey">Email</span>
+              <span className="text-slate-grey">WhatsApp</span>
               <div className="flex items-center gap-2">
                 <span className="text-white font-[family-name:var(--font-space-mono)] text-xs">
-                  {submission.email}
+                  {submission.phone}
                 </span>
-                <button type="button" onClick={copyEmail} className="text-slate-grey hover:text-pistachio transition-colors">
+                <button type="button" onClick={copyPhone} className="text-slate-grey hover:text-pistachio transition-colors">
                   <Copy size={14} />
                 </button>
               </div>
@@ -166,13 +165,6 @@ export default function SubmissionDetail({ submission }: SubmissionDetailProps) 
         <div className="bg-navy-light rounded-xl border border-white/10 p-5">
           <h3 className="text-white font-semibold mb-4">Wizard Answers</h3>
           <div className="space-y-3 text-sm">
-            <div className="flex justify-between">
-              <span className="text-slate-grey">Budget</span>
-              <span className="text-white">
-                {submission.budget_idr ? formatCurrency(submission.budget_idr, "IDR") : "-"}
-                {submission.budget_usd ? ` (${formatCurrency(submission.budget_usd, "USD")})` : ""}
-              </span>
-            </div>
             <div className="flex justify-between">
               <span className="text-slate-grey">Platform</span>
               <span className="text-white capitalize">
@@ -227,7 +219,6 @@ export default function SubmissionDetail({ submission }: SubmissionDetailProps) 
         <div className="bg-navy-light rounded-xl border border-white/10 p-5">
           <h3 className="text-white font-semibold mb-4">Score Breakdown</h3>
           <ScoreBreakdown
-            scoreBudget={submission.score_budget}
             scorePlatform={submission.score_platform}
             scoreTargetUser={submission.score_target_user}
             scoreFeatures={submission.score_features}

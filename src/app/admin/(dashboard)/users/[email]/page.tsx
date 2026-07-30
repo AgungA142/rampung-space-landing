@@ -3,7 +3,6 @@
 import { useEffect, useState, useCallback, useRef } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { ArrowLeft, Copy, ExternalLink, Download } from "lucide-react";
-import { useSupabase } from "@/hooks/useSupabase";
 import { Button } from "@/components/ui/Button";
 import { Textarea } from "@/components/ui/Textarea";
 import { Skeleton } from "@/components/ui/Skeleton";
@@ -15,9 +14,8 @@ import type { DiagnosticSubmission } from "@/types/diagnostic";
 
 export default function UserDetailPage() {
   const params = useParams<{ email: string }>();
-  const email = decodeURIComponent(params.email);
+  const phone = decodeURIComponent(params.email);
   const router = useRouter();
-  const supabase = useSupabase();
   const { toast } = useToast();
   const [submissions, setSubmissions] = useState<DiagnosticSubmission[]>([]);
   const [loading, setLoading] = useState(true);
@@ -26,13 +24,12 @@ export default function UserDetailPage() {
   const debounceRef = useRef<ReturnType<typeof setTimeout>>(undefined);
 
   useEffect(() => {
-    async function fetch() {
-      const { data } = await supabase
-        .from("diagnostic_submissions")
-        .select("*")
-        .eq("email", email)
-        .order("created_at", { ascending: false });
-      const subs = (data ?? []) as DiagnosticSubmission[];
+    async function fetchData() {
+      const res = await fetch(`/api/admin/submissions?phone=${encodeURIComponent(phone)}&limit=1000`, {
+        credentials: "include",
+      });
+      const result = await res.json();
+      const subs = (result.data ?? []) as DiagnosticSubmission[];
       setSubmissions(subs);
       // Use admin_notes from the most recent submission
       if (subs.length > 0 && subs[0].admin_notes) {
@@ -40,8 +37,8 @@ export default function UserDetailPage() {
       }
       setLoading(false);
     }
-    if (email) fetch();
-  }, [email, supabase]);
+    if (phone) fetchData();
+  }, [phone]);
 
   const handleSaveNotes = useCallback(async () => {
     if (submissions.length === 0) return;
@@ -65,7 +62,7 @@ export default function UserDetailPage() {
     if (submissions.length === 0) return;
     const exportData = submissions.map((s) => ({
       name: s.name,
-      email: s.email,
+      phone: s.phone,
       company: s.company ?? "",
       platform: s.platform,
       target_user: s.target_user,
@@ -76,12 +73,12 @@ export default function UserDetailPage() {
       status: s.status,
       created_at: s.created_at,
     }));
-    exportToCsv(exportData, `user-${email}`);
+    exportToCsv(exportData, `user-${phone}`);
   };
 
-  const copyEmail = () => {
-    navigator.clipboard.writeText(email);
-    toast("info", "Email disalin");
+  const copyPhone = () => {
+    navigator.clipboard.writeText(phone);
+    toast("info", "Nomor disalin");
   };
 
   if (loading) {
@@ -115,10 +112,10 @@ export default function UserDetailPage() {
             <span className="text-white font-medium">{user?.name ?? "-"}</span>
           </div>
           <div className="flex justify-between items-center">
-            <span className="text-slate-grey">Email</span>
+            <span className="text-slate-grey">WhatsApp</span>
             <div className="flex items-center gap-2">
-              <span className="text-white font-[family-name:var(--font-space-mono)] text-xs">{email}</span>
-              <button type="button" onClick={copyEmail} className="text-slate-grey hover:text-pistachio">
+              <span className="text-white font-[family-name:var(--font-space-mono)] text-xs">{phone}</span>
+              <button type="button" onClick={copyPhone} className="text-slate-grey hover:text-pistachio">
                 <Copy size={14} />
               </button>
             </div>

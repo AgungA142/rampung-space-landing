@@ -34,12 +34,16 @@ export default function StepContact({ data, errors, onChange }: StepContactProps
           error={errors.name}
         />
         <Input
-          label="Email *"
-          type="email"
-          placeholder="nama@email.com"
-          value={data.email}
-          onChange={(e) => onChange("email", e.target.value)}
-          error={errors.email}
+          label={locale === "id" ? "WhatsApp *" : "WhatsApp *"}
+          type="tel"
+          placeholder="6281234567890"
+          inputMode="numeric"
+          pattern="[0-9]*"
+          maxLength={15}
+          value={data.phone}
+          onChange={(e) => onChange("phone", e.target.value.replace(/\D/g, ""))}
+          error={errors.phone}
+          helper={locale === "id" ? "Masukkan nomor telepon dengan angka saja" : "Enter phone number using digits only"}
         />
         <Input
           label={locale === "id" ? "Nama Perusahaan / Proyek" : "Company / Project Name"}
