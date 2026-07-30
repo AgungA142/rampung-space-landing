@@ -1,10 +1,8 @@
 export interface AdminProfile {
   id: string;
-  user_id: string;
+  email: string;
   full_name: string;
-  avatar_url?: string;
   role: "super_admin" | "admin";
-  created_at: string;
 }
 
 export interface DashboardStats {
