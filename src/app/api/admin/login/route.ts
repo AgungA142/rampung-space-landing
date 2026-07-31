@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { verifyPassword } from "@/lib/auth/password";
 import { createSessionToken, sessionCookie } from "@/lib/auth/session";
+import { isRateLimited, recordFailedAttempt, clearAttempts } from "@/lib/auth/loginRateLimit";
 
 export async function POST(request: NextRequest) {
   const body = await request.json().catch(() => null);
@@ -12,6 +13,13 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: "Email atau password salah" }, { status: 401 });
   }
 
+  if (isRateLimited(email)) {
+    return NextResponse.json(
+      { error: "Terlalu banyak percobaan. Coba lagi dalam beberapa menit." },
+      { status: 429 }
+    );
+  }
+
   const adminDb = createAdminClient();
   const { data: admin } = await adminDb
     .from("admin_users")
@@ -20,8 +28,11 @@ export async function POST(request: NextRequest) {
     .single();
 
   if (!admin || !(await verifyPassword(password, admin.password_hash))) {
+    recordFailedAttempt(email);
     return NextResponse.json({ error: "Email atau password salah" }, { status: 401 });
   }
+
+  clearAttempts(email);
 
   const token = await createSessionToken({
     id: admin.id,
