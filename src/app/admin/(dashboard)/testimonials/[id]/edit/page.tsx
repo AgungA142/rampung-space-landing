@@ -3,7 +3,6 @@
 import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { ArrowLeft } from "lucide-react";
-import { useSupabase } from "@/hooks/useSupabase";
 import { Button } from "@/components/ui/Button";
 import { Skeleton } from "@/components/ui/Skeleton";
 import TestimonialForm from "@/components/admin/TestimonialForm";
@@ -12,22 +11,22 @@ import type { Testimonial } from "@/types/testimonial";
 export default function EditTestimonialPage() {
   const { id } = useParams<{ id: string }>();
   const router = useRouter();
-  const supabase = useSupabase();
   const [testimonial, setTestimonial] = useState<Testimonial | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    async function fetch() {
-      const { data } = await supabase
-        .from("testimonials")
-        .select("*")
-        .eq("id", id)
-        .single();
-      setTestimonial(data as Testimonial | null);
+    async function loadTestimonial() {
+      const res = await fetch(`/api/admin/testimonials/${id}`);
+      if (res.ok) {
+        const { data } = await res.json();
+        setTestimonial(data as Testimonial | null);
+      } else {
+        setTestimonial(null);
+      }
       setLoading(false);
     }
-    if (id) fetch();
-  }, [id, supabase]);
+    if (id) loadTestimonial();
+  }, [id]);
 
   if (loading) {
     return (

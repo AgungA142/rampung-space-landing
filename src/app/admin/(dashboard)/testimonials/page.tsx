@@ -3,7 +3,6 @@
 import { useEffect, useState, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import { Plus, Star, Trash2, Pencil } from "lucide-react";
-import { useSupabase } from "@/hooks/useSupabase";
 import { Button } from "@/components/ui/Button";
 import { Modal } from "@/components/ui/Modal";
 import { Skeleton } from "@/components/ui/Skeleton";
@@ -11,7 +10,6 @@ import { useToast } from "@/components/ui/Toast";
 import type { Testimonial } from "@/types/testimonial";
 
 export default function TestimonialsListPage() {
-  const supabase = useSupabase();
   const router = useRouter();
   const { toast } = useToast();
   const [items, setItems] = useState<Testimonial[]>([]);
@@ -20,13 +18,13 @@ export default function TestimonialsListPage() {
   const [deleting, setDeleting] = useState(false);
 
   const fetchData = useCallback(async () => {
-    const { data } = await supabase
-      .from("testimonials")
-      .select("*")
-      .order("sort_order", { ascending: true });
-    setItems((data ?? []) as Testimonial[]);
+    const res = await fetch("/api/admin/testimonials");
+    if (res.ok) {
+      const { data } = await res.json();
+      setItems((data ?? []) as Testimonial[]);
+    }
     setLoading(false);
-  }, [supabase]);
+  }, []);
 
   useEffect(() => {
     fetchData();

@@ -3,7 +3,6 @@
 import { useEffect, useState, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import { Plus, Star, Trash2, Pencil } from "lucide-react";
-import { useSupabase } from "@/hooks/useSupabase";
 import { Button } from "@/components/ui/Button";
 import { Badge } from "@/components/ui/Badge";
 import { Modal } from "@/components/ui/Modal";
@@ -12,7 +11,6 @@ import { useToast } from "@/components/ui/Toast";
 import type { Portfolio } from "@/types/portfolio";
 
 export default function PortfolioListPage() {
-  const supabase = useSupabase();
   const router = useRouter();
   const { toast } = useToast();
   const [items, setItems] = useState<Portfolio[]>([]);
@@ -21,13 +19,13 @@ export default function PortfolioListPage() {
   const [deleting, setDeleting] = useState(false);
 
   const fetchData = useCallback(async () => {
-    const { data } = await supabase
-      .from("portfolios")
-      .select("*")
-      .order("sort_order", { ascending: true });
-    setItems((data ?? []) as Portfolio[]);
+    const res = await fetch("/api/admin/portfolio");
+    if (res.ok) {
+      const { data } = await res.json();
+      setItems((data ?? []) as Portfolio[]);
+    }
     setLoading(false);
-  }, [supabase]);
+  }, []);
 
   useEffect(() => {
     fetchData();

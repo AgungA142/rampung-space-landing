@@ -1,49 +1,27 @@
 "use client";
 
-import { useEffect, useState, useCallback } from "react";
-import { useSupabase } from "./useSupabase";
-import type { User } from "@supabase/supabase-js";
+import { useCallback } from "react";
 
 export function useAuth() {
-  const supabase = useSupabase();
-  const [user, setUser] = useState<User | null>(null);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const getUser = async () => {
-      const {
-        data: { user },
-      } = await supabase.auth.getUser();
-      setUser(user);
-      setLoading(false);
-    };
-    getUser();
-
-    const {
-      data: { subscription },
-    } = supabase.auth.onAuthStateChange((_event, session) => {
-      setUser(session?.user ?? null);
-      setLoading(false);
+  const signIn = useCallback(async (email: string, password: string) => {
+    const response = await fetch("/api/admin/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email, password }),
     });
 
-    return () => subscription.unsubscribe();
-  }, [supabase]);
+    if (!response.ok) {
+      const body = await response.json().catch(() => ({ error: "Login failed" }));
+      return { error: body.error ?? "Login failed" };
+    }
 
-  const signIn = useCallback(
-    async (email: string, password: string) => {
-      const { error } = await supabase.auth.signInWithPassword({
-        email,
-        password,
-      });
-      return { error };
-    },
-    [supabase]
-  );
+    return { error: null };
+  }, []);
 
   const signOut = useCallback(async () => {
-    const { error } = await supabase.auth.signOut();
-    return { error };
-  }, [supabase]);
+    const response = await fetch("/api/admin/logout", { method: "POST" });
+    return { error: response.ok ? null : "Logout failed" };
+  }, []);
 
-  return { user, loading, signIn, signOut };
+  return { signIn, signOut };
 }

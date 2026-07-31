@@ -1,30 +1,36 @@
 import { NextRequest, NextResponse } from "next/server";
-import { createClient } from "@/lib/supabase/server";
 import { createAdminClient } from "@/lib/supabase/admin";
+import { requireAdmin } from "@/lib/auth/requireAdmin";
 
-async function verifyAdmin() {
-  const supabase = await createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+export async function GET(
+  request: NextRequest,
+  { params }: { params: Promise<{ id: string }> }
+) {
+  const admin = await requireAdmin(request);
+  if (!admin) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
 
-  if (!user) return null;
-
+  const { id } = await params;
   const adminDb = createAdminClient();
-  const { data: profile } = await adminDb
-    .from("admin_profiles")
-    .select("id")
-    .eq("user_id", user.id)
+  const { data, error } = await adminDb
+    .from("testimonials")
+    .select("*")
+    .eq("id", id)
     .single();
 
-  return profile ? user : null;
+  if (error) {
+    return NextResponse.json({ error: "Database error" }, { status: 500 });
+  }
+
+  return NextResponse.json({ data });
 }
 
 export async function PATCH(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
-  const admin = await verifyAdmin();
+  const admin = await requireAdmin(request);
   if (!admin) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
@@ -63,10 +69,10 @@ export async function PATCH(
 }
 
 export async function DELETE(
-  _request: NextRequest,
+  request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
-  const admin = await verifyAdmin();
+  const admin = await requireAdmin(request);
   if (!admin) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
